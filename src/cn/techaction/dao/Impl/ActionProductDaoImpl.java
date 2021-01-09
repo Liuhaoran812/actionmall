@@ -27,6 +27,7 @@ public class ActionProductDaoImpl implements ActionProductDao{
 		if(partsId!=null) {
 			sql+=" and parts_id = ?";
 			params.add(partsId);
+			System.out.println("1111");
 		}
 		try {
 			return queryRunner.query(sql, new ColumnListHandler<Long>("num"),params.toArray())
