@@ -19,8 +19,9 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			sql+=" and parts_id = ?";
 		}
 		try {
+			System.out.println("!!!");
 			return 0;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return 0;
