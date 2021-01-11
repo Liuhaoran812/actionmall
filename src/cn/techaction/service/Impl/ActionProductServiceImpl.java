@@ -89,8 +89,11 @@ public class ActionProductServiceImpl implements ActionProductService{
 			actionProduct.setStatus(status);
 		}
 		//调用dao层类中的方法更新商品信息
-		
-		return null;
+		int rs=actionProductDao.updateProduct(actionProduct);
+		if(rs>0) {
+			return SverResponse.createRespBySuccessMessage("修改商品状态成功!");
+		}
+		return SverResponse.createByErrorMessage("修改商品状态失败!");
 	}
 	@Override
 	public SverResponse<String> saveOrUpdate(ActionProduct actionProduct) {

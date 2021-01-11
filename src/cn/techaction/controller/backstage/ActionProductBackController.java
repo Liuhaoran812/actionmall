@@ -89,7 +89,16 @@ public class ActionProductBackController {
 		
 		return SverResponse.createByErrorMessage("您无操作权限!");
 	}
-	
+	/**
+	 * 修改商品状态:上下架、热销
+	 * @param session
+	 * @param productId
+	 * @param status
+	 * @param hot
+	 * @return
+	 */
+	@RequestMapping("/setstatus.do")
+	@ResponseBody
 	public SverResponse<String> modifyStatus(HttpSession session,Integer productId,Integer status,Integer hot){
 		//1.判断用户是否登陆
 		User user=(User)session.getAttribute(ConstUtil.CUR_USER);
@@ -100,7 +109,7 @@ public class ActionProductBackController {
 		SverResponse<String> response=userService.isAdmin(user);
 		if(response.isSuccess()) {
 			//3.调用Service中的方法更新状态信息
-			
+			return actionProductService.updateStatus(productId, status, hot);
 		}
 		
 		return SverResponse.createByErrorMessage("您无操作权限!");
