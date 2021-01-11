@@ -1,5 +1,9 @@
 package cn.techaction.dao;
 
+import java.util.List;
+
+import cn.techaction.pojo.ActionProduct;
+
 public interface ActionProductDao {
 	/**
 	 * 根据条件获得查询商品的数量
@@ -8,4 +12,14 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public Integer getTotalCount(Integer productId,Integer partsId);
+	/**
+	 * 查找某一页的商品信息
+	 * @param productId
+	 * @param partsId
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	public List<ActionProduct> findProductsByInfo(Integer productId,Integer partsId
+			,Integer startIndex,Integer pageSize);
 }

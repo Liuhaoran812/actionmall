@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,30 @@ public class ActionUserDaoImpl implements ActionUserDao{
 		try {
 			return queryRunner.query(sql, new BeanHandler<User>(User.class),account,password);
 		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<User> findAllUser() {
+		// TODO 自动生成的方法存根
+		String sql="SELECT * FROM action_users WHERE del=0";
+		try {
+			return queryRunner.query(sql, new BeanListHandler<User>(User.class));
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public User findUserById(Integer id) {
+		// TODO 自动生成的方法存根
+		String sql="SELECT * FROM action_users WHERE id=?";
+		try {
+			return queryRunner.query(sql, new BeanHandler<User>(User.class),id);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return null;
 		}

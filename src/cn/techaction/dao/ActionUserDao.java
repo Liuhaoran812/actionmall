@@ -1,5 +1,7 @@
 package cn.techaction.dao;
 
+import java.util.List;
+
 import cn.techaction.pojo.User;
 
 public interface ActionUserDao {
@@ -16,4 +18,15 @@ public interface ActionUserDao {
 	 * @return
 	 */
 	public User findUserByAccountAndPassword(String account,String password);
+	/**
+	 * 获得所有用户信息
+	 * @return
+	 */
+	public List<User> findAllUser();
+	/**
+	 * 根据用户id获得用户对象
+	 * @param id
+	 * @return
+	 */
+	public User findUserById(Integer id);
 }
