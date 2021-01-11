@@ -34,4 +34,10 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public int insertProduct(ActionProduct product);
+	/**
+	 * 修改商品
+	 * @param product
+	 * @return
+	 */
+	public int updateProduct(ActionProduct product);
 }

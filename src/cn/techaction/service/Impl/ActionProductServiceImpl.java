@@ -100,6 +100,8 @@ public class ActionProductServiceImpl implements ActionProductService{
 		}
 		//1.处理主图和子图的链接，从前端传递过来的sub_images里主图分离
 		//第一个链接作为主图链接，其他作为子图链接
+		//修改时:如果重新上传了图片,会清空原来的，新的链接处理和新增相同
+		//修改时:如果没有重新上传图片，
 		if(!StringUtils.isEmpty(actionProduct.getSub_images())) {
 			String[] array=actionProduct.getSub_images().split(",");
 			//拿出第一个元素作为主图
@@ -108,21 +110,36 @@ public class ActionProductServiceImpl implements ActionProductService{
 			String temp=actionProduct.getSub_images();
 			int index=temp.indexOf(",");
 			if(index!=-1) {
-				actionProduct.setSub_images(temp.substring(index+1));
+				if(temp.substring(index+1).equals("null")) {
+					actionProduct.setSub_images(null);
+				}else {
+					actionProduct.setSub_images(temp.substring(index+1));
+				}
 			}else {
 				actionProduct.setSub_images(null);
 			}
 		}
-		//2.处理其他的属性
-		actionProduct.setStatus(ConstUtil.ProductStatus.STATUS_NEW);
-		actionProduct.setIs_hot(ConstUtil.HotStatus.NORMAL_STATUS);
-		actionProduct.setCreated(new Date());
-		actionProduct.setUpdate(new Date());
-		//3.调用dao层类中的方法新增商品信息
-		int rs=actionProductDao.insertProduct(actionProduct);
-		if(rs>0) {
-			return SverResponse.createRespBySuccessMessage("商品新增成功!");
+		//判断是新增还是修改
+		if(actionProduct.getId()!=null) {
+			actionProduct.setUpdate(new Date());
+			//调用dao层类中的方法修改商品信息
+			int rs=actionProductDao.updateProduct(actionProduct);
+			if(rs>0) {
+				return SverResponse.createRespBySuccessMessage("商品修改成功!");
+			}
+			return SverResponse.createByErrorMessage("商品修改失败!");
+		}else {
+			//2.处理其他的属性
+			actionProduct.setStatus(ConstUtil.ProductStatus.STATUS_NEW);
+			actionProduct.setIs_hot(ConstUtil.HotStatus.NORMAL_STATUS);
+			actionProduct.setCreated(new Date());
+			actionProduct.setUpdate(new Date());
+			//3.调用dao层类中的方法新增商品信息
+			int rs=actionProductDao.insertProduct(actionProduct);
+			if(rs>0) {
+				return SverResponse.createRespBySuccessMessage("商品新增成功!");
+			}
+			return SverResponse.createByErrorMessage("商品新增失败!");
 		}
-		return SverResponse.createByErrorMessage("商品新增失败!");
 	}
 }
