@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.collect.Lists;
-
 import cn.techaction.common.ResponseCode;
 import cn.techaction.common.SverResponse;
 import cn.techaction.pojo.User;

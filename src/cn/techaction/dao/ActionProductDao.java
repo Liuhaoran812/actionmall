@@ -22,4 +22,16 @@ public interface ActionProductDao {
 	 */
 	public List<ActionProduct> findProductsByInfo(Integer productId,Integer partsId
 			,Integer startIndex,Integer pageSize);
+	/**
+	 * 多条件查询商品信息
+	 * @param condition
+	 * @return
+	 */
+	public List<ActionProduct> findProductsNoPage(ActionProduct condition);
+	/**
+	 * 新增商品
+	 * @param product
+	 * @return
+	 */
+	public int insertProduct(ActionProduct product);
 }
