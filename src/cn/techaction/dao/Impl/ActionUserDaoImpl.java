@@ -1,6 +1,7 @@
 package cn.techaction.dao.Impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -63,6 +64,35 @@ public class ActionUserDaoImpl implements ActionUserDao{
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return null;
+		}
+	}
+	@Override
+	public int updateUserInfo(User user) {
+		// TODO 自动生成的方法存根
+		String sql="UPDATE action_users SET account=?,password=?,email=?,"
+				+ "phone=?,question=?,asw=?,role=?,create_time=?,update_time=?,"
+				+ "age=?,sex=?,del=?,name=? WHERE id=?";
+		List<Object> param=new ArrayList<>();
+		param.add(user.getAccount());
+		param.add(user.getPassword());
+		param.add(user.getEmail());
+		param.add(user.getPhone());
+		param.add(user.getQuestion());
+		param.add(user.getAsw());
+		param.add(user.getRole());
+		param.add(user.getCreate_time());
+		param.add(user.getUpdate_time());
+		param.add(user.getAge());
+		param.add(user.getSex());
+		param.add(user.getDel());
+		param.add(user.getName());
+		param.add(user.getId());
+		try {	
+			return queryRunner.update(sql,param.toArray());
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}
 	}
 

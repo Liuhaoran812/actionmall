@@ -29,4 +29,10 @@ public interface ActionUserDao {
 	 * @return
 	 */
 	public User findUserById(Integer id);
+	/**
+	 * 更新用户信息
+	 * @param user
+	 * @return
+	 */
+	public int updateUserInfo(User user);
 }

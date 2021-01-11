@@ -1,5 +1,6 @@
 package cn.techaction.service.Impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 
 import cn.techaction.common.SverResponse;
+import cn.techaction.dao.ActionOrderDao;
 import cn.techaction.dao.ActionUserDao;
+import cn.techaction.pojo.ActionOrder;
 import cn.techaction.pojo.User;
 import cn.techaction.service.ActionUserService;
 import cn.techaction.utils.ConstUtil;
@@ -18,8 +21,11 @@ import cn.techaction.vo.ActionUserVo;
 
 @Service
 public class ActionUserServiceImpl implements ActionUserService{
+	
 	@Autowired
 	private ActionUserDao actionUserDao;
+	@Autowired
+	private ActionOrderDao actionOrderDao;
 	@Override
 	public SverResponse<User> doLogin(String account, String password) {
 		// TODO 自动生成的方法存根
@@ -88,6 +94,47 @@ public class ActionUserServiceImpl implements ActionUserService{
 		//2.将user转化成actionUserVo对象
 		ActionUserVo vo=setNormalProperty(user);
 		return SverResponse.createRespBySuccess(vo);
+	}
+	@Override
+	public SverResponse<User> updateUserInfo(ActionUserVo actionUserVo) {
+		// TODO 自动生成的方法存根
+		//1.根据id获得user对象
+		User user=actionUserDao.findUserById(actionUserVo.getId());
+		//2.把userVo里修改的属性值赋给user对象
+		user.setAccount(actionUserVo.getAccount());
+		user.setAge(actionUserVo.getAge());
+		user.setEmail(actionUserVo.getEmail());
+		user.setName(actionUserVo.getName());
+		user.setPhone(actionUserVo.getPhone());
+		if(actionUserVo.getSex().equals("男")) {
+			user.setSex(1);
+		}else {
+			user.setSex(0);
+		}
+		user.setUpdate_time(new Date());
+		//3.调用dao层的方法
+		int rs=actionUserDao.updateUserInfo(user);
+		if(rs>0) {
+			return SverResponse.createRespBySuccess("用户信息修改成功!",user);
+		}
+		return SverResponse.createByErrorMessage("用户信息修改失败!");
+	}
+	@Override
+	public SverResponse<String> delUser(Integer id) {
+		// TODO 自动生成的方法存根
+		//1.判断是否存在订单
+		if(actionOrderDao.findOrderByUid(id).size()>0) {
+			return SverResponse.createByErrorMessage("用户存在关联的订单，无法删除!");
+		}
+		//2.没有,修改del为1
+		User user=actionUserDao.findUserById(id);
+		user.setDel(1);
+		user.setUpdate_time(new Date());
+		int rs=actionUserDao.updateUserInfo(user);
+		if(rs>0) {
+			return SverResponse.createRespBySuccessMessage("用户删除成功!");
+		}
+		return SverResponse.createByErrorMessage("用户删除失败!");
 	}
 
 }

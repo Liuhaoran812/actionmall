@@ -31,4 +31,16 @@ public interface ActionUserService {
 	 * @return
 	 */
 	public SverResponse<ActionUserVo> findUserById(Integer id);
+	/**
+	 * 更新用户信息
+	 * @param actionUserVo
+	 * @return
+	 */
+	public SverResponse<User> updateUserInfo(ActionUserVo actionUserVo);
+	/**
+	 * 删除用户
+	 * @param id
+	 * @return
+	 */
+	public SverResponse<String> delUser(Integer id);
 }

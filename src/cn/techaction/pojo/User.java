@@ -11,7 +11,7 @@ public class User {
 	private String phone;
 	private String question;
 	private Integer role;
-	private Date creat_time;
+	private Date create_time;
 	private Date update_time;
 	private Integer age;
 	private Integer sex;
@@ -65,11 +65,11 @@ public class User {
 	public void setRole(Integer role) {
 		this.role = role;
 	}
-	public Date getCreat_time() {
-		return creat_time;
+	public Date getCreate_time() {
+		return create_time;
 	}
-	public void setCreat_time(Date creat_time) {
-		this.creat_time = creat_time;
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
 	}
 	public Date getUpdate_time() {
 		return update_time;

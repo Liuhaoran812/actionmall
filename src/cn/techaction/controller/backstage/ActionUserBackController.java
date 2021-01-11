@@ -100,4 +100,51 @@ public class ActionUserBackController {
 		return SverResponse.createByErrorMessage("您无操作权限!");
 		
 	}
+	/**
+	 * 更新用户信息
+	 * @param session
+	 * @param actionUserVo
+	 * @return
+	 */
+	@RequestMapping("/updateuser.do")
+	@ResponseBody
+	public SverResponse<User> updateUser(HttpSession session,ActionUserVo actionUserVo){
+		//1.判断用户是否登陆
+		User user=(User)session.getAttribute(ConstUtil.CUR_USER);
+		if(user==null) {
+			return SverResponse.createByErrorCodeMessage(ResponseCode.UNLOGIN.getCode(), "请登录后再进行操作!");
+		}
+		//2.用户是不是管理员
+		SverResponse<String> response=userService.isAdmin(user);
+		if(response.isSuccess()) {
+			//3.调用Service中的方法更新用户
+			return userService.updateUserInfo(actionUserVo);
+		}
+
+		return SverResponse.createByErrorMessage("您无操作权限!");
+		
+	}
+	/**
+	 * 删除用户
+	 * @param session
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/deleteusers.do")
+	@ResponseBody
+	public SverResponse<String> delUsers(HttpSession session,Integer id){
+		//1.判断用户是否登陆
+		User user=(User)session.getAttribute(ConstUtil.CUR_USER);
+		if(user==null) {
+			return SverResponse.createByErrorCodeMessage(ResponseCode.UNLOGIN.getCode(), "请登录后再进行操作!");
+		}
+		//2.用户是不是管理员
+		SverResponse<String> response=userService.isAdmin(user);
+		if(response.isSuccess()) {
+			//3.调用Service中的方法删除用户
+			return userService.delUser(id);
+		}
+
+		return SverResponse.createByErrorMessage("您无操作权限!");
+	}
 }
