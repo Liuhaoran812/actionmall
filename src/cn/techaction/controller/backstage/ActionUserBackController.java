@@ -24,7 +24,7 @@ public class ActionUserBackController {
 	@Autowired
 	private ActionUserService userService;
 	/**
-	 * 前端登陆方法
+	 * 前端登陆
 	 * @param session
 	 * 			会话
 	 * @param account
