@@ -95,5 +95,45 @@ public class ActionUserDaoImpl implements ActionUserDao{
 			return 0;
 		}
 	}
+	@Override
+	public int checkUserByEmail(String email) {
+		// TODO 自动生成的方法存根
+		String sql="select count(*) as num from action_users where email=?";
+		try {
+			List<Long> rs=queryRunner.query(sql, new ColumnListHandler<Long>("num"),email);
+			return rs.size()>0?rs.get(0).intValue():0;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	@Override
+	public int checkUserByPhone(String phone) {
+		// TODO 自动生成的方法存根
+		String sql="select count(*) as num from action_users where phone=?";
+		try {
+			List<Long> rs=queryRunner.query(sql, new ColumnListHandler<Long>("num"),phone);
+			return rs.size()>0?rs.get(0).intValue():0;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	@Override
+	public int insertUser(User user) {
+		// TODO 自动生成的方法存根
+		String sql="INSERT INTO action_users(account,password,email,phone,question"
+				+ ",asw,role,create_time,update_time,age,sex,name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object[] params= {user.getAccount(),user.getPassword(),user.getEmail(),user.getPhone(),user.getQuestion()
+				,user.getAsw(),user.getRole(),user.getCreate_time(),user.getUpdate_time(),user.getAge()
+				,user.getSex(),user.getName()};
+		try {	
+			return queryRunner.update(sql,params);
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 }

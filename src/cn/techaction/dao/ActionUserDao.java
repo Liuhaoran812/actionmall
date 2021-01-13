@@ -35,4 +35,22 @@ public interface ActionUserDao {
 	 * @return
 	 */
 	public int updateUserInfo(User user);
+	/**
+	 * 验证电子邮箱是否被注册
+	 * @param email
+	 * @return
+	 */
+	public int checkUserByEmail(String email);
+	/**
+	 * 验证电话号码是否被注册
+	 * @param phone
+	 * @return
+	 */
+	public int checkUserByPhone(String phone);
+	/**
+	 * 新增用户
+	 * @param user
+	 * @return
+	 */
+	public int insertUser(User user);
 }

@@ -36,4 +36,14 @@ public class ActionUserPortalController {
 		}
 		return response;
 	}
+	/**
+	 * 用户注册
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/do_register.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> registerUser(User user){
+		return userService.doRegister(user);
+	}
 }

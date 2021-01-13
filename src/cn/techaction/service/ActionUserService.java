@@ -43,4 +43,17 @@ public interface ActionUserService {
 	 * @return
 	 */
 	public SverResponse<String> delUser(Integer id);
+	/**
+	 * 注册用户
+	 * @param user
+	 * @return
+	 */
+	public SverResponse<String> doRegister(User user);
+	/**
+	 * 信息校验验证
+	 * @param str
+	 * @param type
+	 * @return
+	 */
+	public SverResponse<String> checkValidation(String str,String type);
 }

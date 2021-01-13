@@ -136,5 +136,60 @@ public class ActionUserServiceImpl implements ActionUserService{
 		}
 		return SverResponse.createByErrorMessage("用户删除失败!");
 	}
-
+	@Override
+	public SverResponse<String> doRegister(User user) {
+		// TODO 自动生成的方法存根
+		//1.检查用户名是否存在
+		SverResponse<String> resp = checkValidation(user.getAccount(), ConstUtil.TYPE_ACCOUNT);
+		if(!resp.isSuccess()) {
+			return resp;
+		}
+		//2.检查邮箱是否被注册
+		resp = checkValidation(user.getEmail(), ConstUtil.TYPE_EMAIL);
+		if(!resp.isSuccess()) {
+			return resp;
+		}
+		//3.指定用户角色,通过前端注册的用户都为客户
+		user.setRole(ConstUtil.Role.ROLE_CUSTOMER);
+		//4.对密码进行加密
+		user.setPassword(MD5Util.MD5Encode(user.getPassword(), "utf-8" , false));
+		//5.执行注册
+		Date curDate=new Date();
+		user.setCreate_time(curDate);
+		user.setUpdate_time(curDate);
+		int rs = actionUserDao.insertUser(user);
+		if(rs == 0) {
+			return SverResponse.createByErrorMessage("注册失败!");
+		}
+		return SverResponse.createRespBySuccessMessage("注册成功!");
+	}
+	@Override
+	public SverResponse<String> checkValidation(String str, String type) {
+		// TODO 自动生成的方法存根
+		//1.判断type不为空
+		if(StringUtils.isNotBlank(type)) {
+			if (ConstUtil.TYPE_ACCOUNT.equals(type)) {
+				int rs = actionUserDao.checkUserByAccount(str);
+				if (rs > 0) {
+					return SverResponse.createByErrorMessage("用户名已存在!");
+				}
+			}
+			if (ConstUtil.TYPE_EMAIL.equals(type)) {
+				int rs = actionUserDao.checkUserByEmail(str);
+				if(rs > 0) {
+					return SverResponse.createByErrorMessage("邮箱已被注册!");
+				}
+			}
+			if (ConstUtil.TYPE_PHONE.equals(type)) {
+				int rs = actionUserDao.checkUserByPhone(str);
+				if(rs > 0) {
+					return SverResponse.createByErrorMessage("电话号码已被注册!");
+				}
+			}
+		}else {
+			return SverResponse.createByErrorMessage("信息验证类别错误!");
+		}
+		return SverResponse.createRespBySuccessMessage("信息验证成功!");
+	}
+	
 }
