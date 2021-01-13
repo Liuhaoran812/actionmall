@@ -12,6 +12,7 @@ import cn.techaction.common.SverResponse;
 import cn.techaction.pojo.User;
 import cn.techaction.service.ActionUserService;
 import cn.techaction.utils.ConstUtil;
+import cn.techaction.vo.ActionUserVo;
 
 @Controller
 @RequestMapping("/user")
@@ -78,5 +79,27 @@ public class ActionUserPortalController {
 	@ResponseBody
 	public SverResponse<String> resetPassword(Integer userId,String newPwd){
 		return userService.resetPassword(userId,newPwd);
+	}
+	/**
+	 * 修改用户个人资料
+	 * @param session
+	 * @param actionUserVo
+	 * @return
+	 */
+	@RequestMapping(value="/updateuserinfo.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<User> updateUserInfo(HttpSession session,ActionUserVo actionUserVo){
+		User curUser = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(curUser == null) {
+			return SverResponse.createByErrorMessage("用户尚未登陆!");
+		}
+		actionUserVo.setId(curUser.getId());
+		actionUserVo.setAccount(curUser.getAccount());
+		SverResponse<User> resp = userService.updateUserInfo(actionUserVo);
+		if (resp.isSuccess()) {
+			//重写session
+			session.setAttribute(ConstUtil.CUR_USER, resp.getData());
+		}
+		return resp;
 	}
 }
