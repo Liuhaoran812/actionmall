@@ -77,4 +77,12 @@ public interface ActionUserService {
 	 * @return
 	 */
 	public SverResponse<String> resetPassword(Integer userId, String newPwd);
+	/**
+	 * 修改密码
+	 * @param user
+	 * @param newPwd
+	 * @param oldPwd
+	 * @return
+	 */
+	public SverResponse<String> updatePassword(User user, String newPwd, String oldPwd);
 }

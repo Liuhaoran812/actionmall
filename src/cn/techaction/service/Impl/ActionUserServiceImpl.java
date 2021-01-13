@@ -234,6 +234,25 @@ public class ActionUserServiceImpl implements ActionUserService{
 		user.setUpdate_time(new Date());
 		int rs=actionUserDao.updateUserInfo(user);
 		if (rs>0) {
+			return SverResponse.createRespBySuccessMessage("密码重置成功!");
+		}
+		return SverResponse.createByErrorMessage("密码重置失败!");
+	}
+	@Override
+	public SverResponse<String> updatePassword(User user, String newPwd, String oldPwd) {
+		// TODO 自动生成的方法存根
+		//1.防止越权，检测用户旧密码是否正确
+		String md5OldPwd = MD5Util.MD5Encode(oldPwd, "utf-8", false);
+		int rs = actionUserDao.checkPassword(user.getAccount(),md5OldPwd);
+		if (rs == 0) {
+			return SverResponse.createByErrorMessage("原始密码错误!");
+		}
+		//2.正确，将新密码更新
+		String md5NewPwd = MD5Util.MD5Encode(newPwd, "utf-8", false);
+		user.setPassword(md5NewPwd);
+		user.setUpdate_time(new Date());
+		rs = actionUserDao.updateUserInfo(user);
+		if (rs > 0) {
 			return SverResponse.createRespBySuccessMessage("密码修改成功!");
 		}
 		return SverResponse.createByErrorMessage("密码修改失败!");

@@ -102,4 +102,26 @@ public class ActionUserPortalController {
 		}
 		return resp;
 	}
+	/**
+	 * 登录用户修改密码
+	 * @param session
+	 * @param newPwd
+	 * @param oldPwd
+	 * @return
+	 */
+	@RequestMapping(value="/updatepassword.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> updatePassword(HttpSession session,String newPwd,String oldPwd){
+		//1.将session取出判断是否登陆
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("用户尚未登陆");
+		}
+		SverResponse<String> result = userService.updatePassword(user,newPwd,oldPwd);
+		//2.将session清空,重新登录
+		if(result.isSuccess()) {
+			session.removeAttribute(ConstUtil.CUR_USER);
+		}
+		return result;
+	}
 }

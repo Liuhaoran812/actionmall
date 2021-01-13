@@ -67,4 +67,11 @@ public interface ActionUserDao {
 	 * @return
 	 */
 	public int checkUserAnswer(String account, String question, String asw);
+	/**
+	 * 验证用户密码是否正确
+	 * @param account
+	 * @param password
+	 * @return
+	 */
+	public int checkPassword(String account, String password);
 }

@@ -158,5 +158,17 @@ public class ActionUserDaoImpl implements ActionUserDao{
 			return 0;
 		}
 	}
+	@Override
+	public int checkPassword(String account, String password) {
+		// TODO 自动生成的方法存根
+		String sql="select count(account) as num from action_users where account=? and password=?";
+		try {
+			List<Long> rs=queryRunner.query(sql, new ColumnListHandler<Long>("num"),account,password);
+			return rs.size()>0?rs.get(0).intValue():0;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 }
