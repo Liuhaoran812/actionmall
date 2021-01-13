@@ -53,4 +53,18 @@ public interface ActionUserDao {
 	 * @return
 	 */
 	public int insertUser(User user);
+	/**
+	 * 根据用户名返回用户信息
+	 * @param account
+	 * @return
+	 */
+	public User findUserByAccount(String account);
+	/**
+	 * 校验用户密码答案
+	 * @param account
+	 * @param question
+	 * @param asw
+	 * @return
+	 */
+	public int checkUserAnswer(String account, String question, String asw);
 }

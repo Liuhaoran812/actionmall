@@ -46,4 +46,37 @@ public class ActionUserPortalController {
 	public SverResponse<String> registerUser(User user){
 		return userService.doRegister(user);
 	}
+	/**
+	 * 验证用户并且获得用户对象
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value="/getuserbyaccount.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<User> getUserByAccount(String account){
+		return userService.findUserByAccount(account);
+	}
+	/**
+	 * 验证用户密码提示问题答案
+	 * @param account
+	 * @param question
+	 * @param asw
+	 * @return
+	 */
+	@RequestMapping(value="/checkuserasw.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> checkUserAnswer(String account,String question,String asw){
+		return userService.checkUserAnswer(account,question,asw);
+	}
+	/**
+	 * 重置密码
+	 * @param userId
+	 * @param newPwd
+	 * @return
+	 */
+	@RequestMapping(value="/resetpassword.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> resetPassword(Integer userId,String newPwd){
+		return userService.resetPassword(userId,newPwd);
+	}
 }

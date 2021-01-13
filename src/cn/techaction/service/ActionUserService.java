@@ -56,4 +56,25 @@ public interface ActionUserService {
 	 * @return
 	 */
 	public SverResponse<String> checkValidation(String str,String type);
+	/**
+	 * 根据用户名获得用户对象
+	 * @param account
+	 * @return
+	 */
+	public SverResponse<User> findUserByAccount(String account);
+	/**
+	 * 校验用户问题答案
+	 * @param account
+	 * @param question
+	 * @param asw
+	 * @return
+	 */
+	public SverResponse<String> checkUserAnswer(String account, String question, String asw);
+	/**
+	 * 重置密码
+	 * @param userId
+	 * @param newPwd
+	 * @return
+	 */
+	public SverResponse<String> resetPassword(Integer userId, String newPwd);
 }

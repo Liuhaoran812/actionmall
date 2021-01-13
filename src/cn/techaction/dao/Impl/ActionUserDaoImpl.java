@@ -135,5 +135,28 @@ public class ActionUserDaoImpl implements ActionUserDao{
 			return 0;
 		}
 	}
+	@Override
+	public User findUserByAccount(String account) {
+		// TODO 自动生成的方法存根
+		String sql="select * from action_users where account=?";
+		try {
+			return queryRunner.query(sql, new BeanHandler<User>(User.class),account);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public int checkUserAnswer(String account, String question, String asw) {
+		// TODO 自动生成的方法存根
+		String sql="select count(account) as num from action_users where account=? and question=? and asw=?";
+		try {
+			List<Long> rs=queryRunner.query(sql, new ColumnListHandler<Long>("num"),account,question,asw);
+			return rs.size()>0?rs.get(0).intValue():0;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 }

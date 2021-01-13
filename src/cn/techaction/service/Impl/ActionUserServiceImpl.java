@@ -2,6 +2,7 @@ package cn.techaction.service.Impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import cn.techaction.pojo.User;
 import cn.techaction.service.ActionUserService;
 import cn.techaction.utils.ConstUtil;
 import cn.techaction.utils.MD5Util;
+import cn.techaction.utils.TokenCache;
 import cn.techaction.vo.ActionUserVo;
 
 @Service
@@ -190,6 +192,51 @@ public class ActionUserServiceImpl implements ActionUserService{
 			return SverResponse.createByErrorMessage("信息验证类别错误!");
 		}
 		return SverResponse.createRespBySuccessMessage("信息验证成功!");
+	}
+	@Override
+	public SverResponse<User> findUserByAccount(String account) {
+		// TODO 自动生成的方法存根
+		//1.通过用户名查找到用户
+		User user=actionUserDao.findUserByAccount(account);
+		if(user==null) {
+			return SverResponse.createByErrorMessage("用户名不存在!");
+		}
+		//2.将密码置空
+		user.setPassword(StringUtils.EMPTY);
+		//3.将安全问题答案置空
+		user.setAsw(StringUtils.EMPTY);
+		return SverResponse.createRespBySuccess(user);
+	}
+	@Override
+	public SverResponse<String> checkUserAnswer(String account, String question, String asw) {
+		// TODO 自动生成的方法存根
+		//1.获取校验结果
+		int rs=actionUserDao.checkUserAnswer(account,question,asw);
+		if(rs>0) {
+			//2.答案正确,生成token
+			String token = UUID.randomUUID().toString();
+			//放入缓存
+			TokenCache.setCacheData(TokenCache.PREFIX+account, token);
+			return SverResponse.createRespBySuccessMessage(token);
+		}
+		return SverResponse.createByErrorMessage("问题答案错误!");
+		
+	}
+	@Override
+	public SverResponse<String> resetPassword(Integer userId, String newPwd) {
+		// TODO 自动生成的方法存根
+		//1.将密码加密
+		String md5pwd = MD5Util.MD5Encode(newPwd, "utf-8", false);
+		//2.获得user对象
+		User user = actionUserDao.findUserById(userId);
+		//3.更新密码
+		user.setPassword(md5pwd);
+		user.setUpdate_time(new Date());
+		int rs=actionUserDao.updateUserInfo(user);
+		if (rs>0) {
+			return SverResponse.createRespBySuccessMessage("密码修改成功!");
+		}
+		return SverResponse.createByErrorMessage("密码修改失败!");
 	}
 	
 }
