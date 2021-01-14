@@ -146,4 +146,23 @@ public class ActionCartServiceImpl implements ActionCartService {
 		}
 		return SverResponse.createByErrorMessage("清空购物车失败!");
 	}
+
+	@Override
+	public SverResponse<ActionCartVo> updateCart(Integer userId, Integer productId, Integer count, Integer checked) {
+		// TODO 自动生成的方法存根
+		//1.验证参数是否正确
+		if(userId == null || productId == null || count == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.更新购物车信息
+		ActionCart actionCart = new ActionCart();
+		actionCart.setUser_id(userId);
+		actionCart.setProduct_id(productId);
+		actionCart.setQuantity(count);
+		actionCart.setChecked(checked);
+		actionCart.setUpdated(new Date());
+		actionCartDao.updateCartByUserIdAndProductId(actionCart);
+		//3.返回所有购物车信息
+		return findAllCarts(userId);
+	}
 }

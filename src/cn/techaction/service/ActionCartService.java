@@ -24,5 +24,14 @@ public interface ActionCartService {
 	 * @return
 	 */
 	SverResponse<String> clearCart(Integer userId);
+	/**
+	 * 更新购物车中的商品数量
+	 * @param userId
+	 * @param productId
+	 * @param count
+	 * @param checked
+	 * @return
+	 */
+	SverResponse<ActionCartVo> updateCart(Integer userId, Integer productId, Integer count, Integer checked);
 
 }

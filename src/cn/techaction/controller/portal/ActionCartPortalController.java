@@ -63,4 +63,21 @@ public class ActionCartPortalController {
 		}
 		return actionCartService.clearCart(user.getId());
 	}
+	/**
+	 * 更新购物车
+	 * @param session
+	 * @param productId
+	 * @param count
+	 * @param checked
+	 * @return
+	 */
+	@RequestMapping(value="/updatecarts.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<ActionCartVo> updateCarts(HttpSession session,Integer productId,Integer count,Integer checked){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionCartService.updateCart(user.getId(),productId,count,checked);
+	}
 }

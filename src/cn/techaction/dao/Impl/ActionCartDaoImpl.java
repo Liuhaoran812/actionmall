@@ -1,6 +1,7 @@
 package cn.techaction.dao.Impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -74,6 +75,28 @@ public class ActionCartDaoImpl implements ActionCartDao {
 		String sql = "DELETE FROM action_carts WHERE user_id = ?";
 		try {
 			return queryRunner.update(sql, userId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	@Override
+	public int updateCartByUserIdAndProductId(ActionCart actionCart) {
+		// TODO 自动生成的方法存根
+		String sql = "UPDATE action_carts set quantity = ?";
+		List<Object> params = new ArrayList<>();
+		params.add(actionCart.getQuantity());
+		if (actionCart.getChecked() != null) {
+			sql += ",checked = ?";
+			params.add(actionCart.getChecked());
+		}
+		sql += ",updated = ? WHERE user_id = ? and product_id = ?";
+		params.add(actionCart.getUpdated());
+		params.add(actionCart.getUser_id());
+		params.add(actionCart.getProduct_id());
+		try {
+			return queryRunner.update(sql, params.toArray());
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

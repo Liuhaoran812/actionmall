@@ -35,5 +35,11 @@ public interface ActionCartDao {
 	 * @return
 	 */
 	public int deleteCartByUserId(Integer userId);
+	/**
+	 * 更新购物车中的商品数量
+	 * @param actionCart
+	 * @return
+	 */
+	public int updateCartByUserIdAndProductId(ActionCart actionCart);
 
 }
