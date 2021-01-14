@@ -205,5 +205,18 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			return null;
 		}
 	}
+	@Override
+	public List<ActionProduct> findProductsByProductCategory(Integer categoryId) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT "+str+" FROM action_products where product_id=? and status=2 "
+				+ "order by updated desc";
+		try {
+			return queryRunner.query(sql, new BeanListHandler<ActionProduct>(ActionProduct.class),categoryId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }

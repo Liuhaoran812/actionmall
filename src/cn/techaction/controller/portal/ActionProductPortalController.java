@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.techaction.common.SverResponse;
 import cn.techaction.pojo.ActionProduct;
 import cn.techaction.service.ActionProductService;
+import cn.techaction.vo.ActionProductFloorVo;
 
 @Controller
 @RequestMapping("/product")
@@ -26,5 +27,14 @@ public class ActionProductPortalController {
 	@ResponseBody
 	public SverResponse<List<ActionProduct>> findHotProducts(Integer num){
 		return actionProductService.findHotProducts(num);
+	}
+	/**
+	 * 查找楼层商品
+	 * @return
+	 */
+	@RequestMapping("findfloor.do")
+	@ResponseBody
+	public SverResponse<ActionProductFloorVo> findFloorProducts(){
+		return actionProductService.findFloorProducts();
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import cn.techaction.common.SverResponse;
 import cn.techaction.pojo.ActionProduct;
 import cn.techaction.utils.PageBean;
+import cn.techaction.vo.ActionProductFloorVo;
 import cn.techaction.vo.ActionProductListVo;
 
 public interface ActionProductService {
@@ -44,4 +45,9 @@ public interface ActionProductService {
 	 * @return
 	 */
 	public SverResponse<List<ActionProduct>> findHotProducts(Integer num);
+	/**
+	 * 前台:获得首页所有楼层数据
+	 * @return
+	 */
+	public SverResponse<ActionProductFloorVo> findFloorProducts();
 }

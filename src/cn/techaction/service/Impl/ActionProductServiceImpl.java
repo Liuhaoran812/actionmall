@@ -16,6 +16,7 @@ import cn.techaction.pojo.ActionProduct;
 import cn.techaction.service.ActionProductService;
 import cn.techaction.utils.ConstUtil;
 import cn.techaction.utils.PageBean;
+import cn.techaction.vo.ActionProductFloorVo;
 import cn.techaction.vo.ActionProductListVo;
 @Service
 public class ActionProductServiceImpl implements ActionProductService{
@@ -151,5 +152,21 @@ public class ActionProductServiceImpl implements ActionProductService{
 		//直接查询所需数据
 		List<ActionProduct> actionProducts = actionProductDao.findHotProducts(num);
 		return SverResponse.createRespBySuccess(actionProducts);
+	}
+	@Override
+	public SverResponse<ActionProductFloorVo> findFloorProducts() {
+		// TODO 自动生成的方法存根
+		//1.创建vo对象
+		ActionProductFloorVo actionProductFloorVo = new ActionProductFloorVo();
+		//2.各楼数据
+		List<ActionProduct> products1 = actionProductDao.findProductsByProductCategory(ConstUtil.ProductType.TYPE_HNTJX);
+		List<ActionProduct> products2 = actionProductDao.findProductsByProductCategory(ConstUtil.ProductType.TYPE_JZQZJJX);
+		List<ActionProduct> products3 = actionProductDao.findProductsByProductCategory(ConstUtil.ProductType.TYPE_GCQZJJX);
+		List<ActionProduct> products4 = actionProductDao.findProductsByProductCategory(ConstUtil.ProductType.TYPE_LMJX);
+		actionProductFloorVo.setOneFloor(products1);
+		actionProductFloorVo.setTwoFloor(products2);
+		actionProductFloorVo.setThreeFloor(products3);
+		actionProductFloorVo.setFourFloor(products4);
+		return SverResponse.createRespBySuccess(actionProductFloorVo);
 	}
 }

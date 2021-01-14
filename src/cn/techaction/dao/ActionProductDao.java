@@ -46,4 +46,10 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public List<ActionProduct> findHotProducts(Integer num);
+	/**
+	 * 根据产品类型查询商品信息
+	 * @param categoryId
+	 * @return
+	 */
+	public List<ActionProduct> findProductsByProductCategory(Integer categoryId);
 }
