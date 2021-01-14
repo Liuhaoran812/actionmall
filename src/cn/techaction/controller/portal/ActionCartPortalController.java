@@ -80,4 +80,19 @@ public class ActionCartPortalController {
 		}
 		return actionCartService.updateCart(user.getId(),productId,count,checked);
 	}
+	/**
+	 * 删除购物车中的某条商品
+	 * @param session
+	 * @param productId
+	 * @return
+	 */
+	@RequestMapping(value="/deletecarts.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<ActionCartVo> deleteCarts(HttpSession session,Integer productId){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionCartService.deleteCart(user.getId(),productId);
+	}
 }

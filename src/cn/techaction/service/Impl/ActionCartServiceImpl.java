@@ -165,4 +165,20 @@ public class ActionCartServiceImpl implements ActionCartService {
 		//3.返回所有购物车信息
 		return findAllCarts(userId);
 	}
+
+	@Override
+	public SverResponse<ActionCartVo> deleteCart(Integer userId, Integer productId) {
+		// TODO 自动生成的方法存根
+		//1.验证参数是否正确
+		if(userId == null || productId == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.删除购物车中的某条商品信息
+		int rs = actionCartDao.deleteCartByUserIdAndProductId(userId,productId);
+		if (rs == 0) {
+			return SverResponse.createByErrorMessage("删除商品失败!");
+		}
+		//3.返回所有购物车信息
+		return findAllCarts(userId);
+	}
 }

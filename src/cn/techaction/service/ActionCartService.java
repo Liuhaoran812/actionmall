@@ -33,5 +33,12 @@ public interface ActionCartService {
 	 * @return
 	 */
 	SverResponse<ActionCartVo> updateCart(Integer userId, Integer productId, Integer count, Integer checked);
+	/**
+	 * 删除购物车中的某条商品
+	 * @param userId
+	 * @param productId
+	 * @return
+	 */
+	SverResponse<ActionCartVo> deleteCart(Integer userId, Integer productId);
 
 }

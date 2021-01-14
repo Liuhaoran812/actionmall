@@ -103,4 +103,16 @@ public class ActionCartDaoImpl implements ActionCartDao {
 			return 0;
 		}
 	}
+	@Override
+	public int deleteCartByUserIdAndProductId(Integer userId, Integer productId) {
+		// TODO 自动生成的方法存根
+		String sql = "DELETE FROM action_carts WHERE user_id = ? and product_id = ?";
+		try {
+			return queryRunner.update(sql, userId,productId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }
