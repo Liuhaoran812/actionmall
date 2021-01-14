@@ -6,22 +6,11 @@ import cn.techaction.pojo.ActionProduct;
 
 public interface ActionProductDao {
 	/**
-	 * 根据条件获得查询商品的数量
-	 * @param productId
-	 * @param partsId
+	 * 根据条件查询商品总数
+	 * @param actionProduct
 	 * @return
 	 */
-	public Integer getTotalCount(Integer productId,Integer partsId);
-	/**
-	 * 查找某一页的商品信息
-	 * @param productId
-	 * @param partsId
-	 * @param startIndex
-	 * @param pageSize
-	 * @return
-	 */
-	public List<ActionProduct> findProductsByInfo(Integer productId,Integer partsId
-			,Integer startIndex,Integer pageSize);
+	public Integer getTotalCount(ActionProduct actionProduct);
 	/**
 	 * 多条件查询商品信息
 	 * @param condition
@@ -58,4 +47,12 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public ActionProduct findProductById(Integer id);
+	/**
+	 * 根据条件分页查询
+	 * @param actionProduct
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	public List<ActionProduct> findProducts(ActionProduct actionProduct, int startIndex, int pageSize);
 }

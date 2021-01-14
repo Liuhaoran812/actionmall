@@ -10,16 +10,6 @@ import cn.techaction.vo.ActionProductListVo;
 
 public interface ActionProductService {
 	/**
-	 * 查询商品
-	 * @param productId
-	 * @param partsId
-	 * @param pageNum
-	 * @param pageSize
-	 * @return
-	 */
-	public SverResponse<PageBean<ActionProduct>> findProduct(Integer productId,Integer partsId
-			,Integer pageNum,Integer pageSize);
-	/**
 	 * 多条件查询商品信息
 	 * @param actionProduct
 	 * @return
@@ -56,4 +46,15 @@ public interface ActionProductService {
 	 * @return
 	 */
 	public SverResponse<ActionProduct> findProductDetailForPortal(Integer productId);
+	/**
+	 * 前台:根据产品类型和配件类型查找商品信息(模糊查询)
+	 * @param productTypeId
+	 * @param partsId
+	 * @param name
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public SverResponse<PageBean<ActionProductListVo>> findProductsForPortal(Integer productTypeId, Integer partsId,
+			String name, int pageNum, int pageSize);
 }

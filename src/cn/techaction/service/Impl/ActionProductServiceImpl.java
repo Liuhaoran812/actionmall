@@ -25,17 +25,6 @@ public class ActionProductServiceImpl implements ActionProductService{
 	@Autowired
 	private ActionParamsDao actionParamsDao;
 	@Override
-	public SverResponse<PageBean<ActionProduct>> findProduct(Integer productId, Integer partsId, Integer pageNum,
-			Integer pageSize) {
-		// TODO 自动生成的方法存根
-		//1.先要根据条件获得产品总数
-		int totalCount=actionProductDao.getTotalCount(productId, partsId);
-		PageBean<ActionProduct> pageBean=new PageBean<ActionProduct>(pageNum, pageSize, totalCount);
-		//2.调用dao层获得分页查询的商品信息
-		pageBean.setData(actionProductDao.findProductsByInfo(productId, partsId, pageBean.getStartIndex(), pageSize));
-		return SverResponse.createRespBySuccess(pageBean);
-	}
-	@Override
 	public SverResponse<List<ActionProductListVo>> findProducts(ActionProduct actionProduct) {
 		// TODO 自动生成的方法存根
 		if(actionProduct.getName()!=null) {
@@ -56,7 +45,7 @@ public class ActionProductServiceImpl implements ActionProductService{
 	 * @return
 	 */
 	private ActionProductListVo createProductListVo(ActionProduct actionProduct) {
-		ActionProductListVo vo=new ActionProductListVo();
+		ActionProductListVo vo = new ActionProductListVo();
 		vo.setId(actionProduct.getId());
 		vo.setName(actionProduct.getName());
 		vo.setPrice(actionProduct.getPrice());
@@ -186,5 +175,38 @@ public class ActionProductServiceImpl implements ActionProductService{
 			return SverResponse.createByErrorMessage("产品已经下架!");
 		}
 		return SverResponse.createRespBySuccess(actionProduct);
+	}
+	@Override
+	public SverResponse<PageBean<ActionProductListVo>> findProductsForPortal(Integer productTypeId, Integer partsId,
+			String name, int pageNum, int pageSize) {
+		// TODO 自动生成的方法存根
+		//1.创建对象
+		ActionProduct actionProduct=new ActionProduct();
+		Integer totalRecord = 0;
+		//2.判断name是否为空(模糊查询)
+		if(name != null && !name.equals("")) {
+			actionProduct.setName("%"+name+"%");
+		}
+		if(productTypeId != 0) {
+			actionProduct.setProduct_id(productTypeId);
+		}
+		if(partsId != 0) {
+			actionProduct.setParts_id(partsId);
+		}
+		//3.前端显示商品都为在售
+		actionProduct.setStatus(2);
+		//4.查找符合条件的总记录数
+		totalRecord = actionProductDao.getTotalCount(actionProduct);
+		//5.创建分页对象
+		PageBean<ActionProductListVo> pageBean = new PageBean<>(pageNum, pageSize, totalRecord);
+		//6.读取数据
+		List<ActionProduct> products = actionProductDao.findProducts(actionProduct,pageBean.getStartIndex(),pageSize);
+		//7.封装vo
+		List<ActionProductListVo> voList=Lists.newArrayList();
+		for(ActionProduct product:products) {
+			voList.add(createProductListVo(product));
+		}
+		pageBean.setData(voList);
+		return SverResponse.createRespBySuccess(pageBean);
 	}
 }

@@ -22,17 +22,29 @@ public class ActionProductDaoImpl implements ActionProductDao{
 	private String str="id,name,product_id,parts_id,icon_url,sub_images,"
 			+ "detail,spec_param,price,stock,status,is_hot,created,updated";
 	@Override
-	public Integer getTotalCount(Integer productId, Integer partsId) {
+	public Integer getTotalCount(ActionProduct actionProduct) {
 		// TODO 自动生成的方法存根
-		String sql="select count(*) as num from action_products where 1=1 ";
+		String sql="select count(id) as num from action_products where 1=1 ";
 		List<Object> params=new ArrayList<>();
-		if(productId!=null) {
-			sql+=" and product_id = ?";
-			params.add(productId);
+		if (actionProduct.getId() != null) {
+			sql+=" and id = ?";
+			params.add(actionProduct.getId());
 		}
-		if(partsId!=null) {
+		if(actionProduct.getProduct_id() != null) {
+			sql+=" and product_id = ?";
+			params.add(actionProduct.getProduct_id());
+		}
+		if(actionProduct.getName() != null) {
+			sql+=" and name like ?";
+			params.add(actionProduct.getName());
+		}
+		if(actionProduct.getStatus() != null) {
+			sql+=" and status = ?";
+			params.add(actionProduct.getStatus());
+		}
+		if(actionProduct.getParts_id() != null) {
 			sql+=" and parts_id = ?";
-			params.add(partsId);
+			params.add(actionProduct.getParts_id());
 		}
 		try {
 			return queryRunner.query(sql, new ColumnListHandler<Long>("num"),params.toArray())
@@ -42,33 +54,6 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			e.printStackTrace();
 			return 0;
 		}
-	}
-	@Override
-	public List<ActionProduct> findProductsByInfo(Integer productId, Integer partsId, Integer startIndex,
-			Integer pageSize) {
-		// TODO 自动生成的方法存根
-		String sql="SELECT "+str+" FROM action_products where 1=1";
-		List<Object> params=new ArrayList<>();
-		if(productId!=null) {
-			sql+=" and product_id = ?";
-			params.add(productId);
-		}
-		if(partsId!=null) {
-			sql+=" and parts_id = ?";
-			params.add(partsId);
-		}
-		sql+=" limit ?,?";
-		params.add(startIndex);
-		params.add(pageSize);
-		try {
-			return queryRunner.query(sql,new BeanListHandler<ActionProduct>(ActionProduct.class
-					),params.toArray());
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
-		
 	}
 	@Override
 	public List<ActionProduct> findProductsNoPage(ActionProduct condition) {
@@ -227,6 +212,43 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			return queryRunner.query(sql, new BeanHandler<ActionProduct>(ActionProduct.class),id);
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<ActionProduct> findProducts(ActionProduct actionProduct, int startIndex, int pageSize) {
+		// TODO 自动生成的方法存根
+		String sql="SELECT "+str+" FROM action_products where 1=1";
+		List<Object> params=new ArrayList<>();
+		if (actionProduct.getId() != null) {
+			sql+=" and id = ?";
+			params.add(actionProduct.getId());
+		}
+		if(actionProduct.getProduct_id() != null) {
+			sql+=" and product_id = ?";
+			params.add(actionProduct.getProduct_id());
+		}
+		if(actionProduct.getName() != null) {
+			sql+=" and name like ?";
+			params.add(actionProduct.getName());
+		}
+		if(actionProduct.getStatus() != null) {
+			sql+=" and status = ?";
+			params.add(actionProduct.getStatus());
+		}
+		if(actionProduct.getParts_id() != null) {
+			sql+=" and parts_id = ?";
+			params.add(actionProduct.getParts_id());
+		}
+		sql+=" limit ?,?";
+		params.add(startIndex);
+		params.add(pageSize);
+		try {
+			return queryRunner.query(sql,new BeanListHandler<ActionProduct>(ActionProduct.class
+					),params.toArray());
+		} catch (SQLException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}

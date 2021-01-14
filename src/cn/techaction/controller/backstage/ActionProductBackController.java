@@ -28,22 +28,6 @@ public class ActionProductBackController {
 	@Autowired
 	private ActionUserService userService;
 	/**
-	 * 分页查询
-	 * @param productId
-	 * @param partsId
-	 * @param pageNum
-	 * @param pageSize
-	 * @return
-	 */
-	@RequestMapping("/find_product.do")
-	@ResponseBody
-	public SverResponse<PageBean<ActionProduct>>findProduct(Integer productId,Integer partsId
-			,Integer pageNum,Integer pageSize) {
-		//调用Service层的方法分页查询
-		
-		return actionProductService.findProduct(productId, partsId, pageNum, pageSize);
-	}
-	/**
 	 * 查询商品信息
 	 * @param session
 	 * @param product
