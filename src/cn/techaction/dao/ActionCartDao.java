@@ -29,5 +29,11 @@ public interface ActionCartDao {
 	 * @return
 	 */
 	public List<ActionCart> findCartByUser(Integer userId);
+	/**
+	 * 删除某个用户购物车中的所有商品
+	 * @param userId
+	 * @return
+	 */
+	public int deleteCartByUserId(Integer userId);
 
 }

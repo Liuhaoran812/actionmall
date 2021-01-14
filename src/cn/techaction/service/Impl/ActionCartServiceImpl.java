@@ -131,4 +131,19 @@ public class ActionCartServiceImpl implements ActionCartService {
 		actionCartVo.setTotalPrice(cartTotalPrice);
 		return actionCartVo;
 	}
+
+	@Override
+	public SverResponse<String> clearCart(Integer userId) {
+		// TODO 自动生成的方法存根
+		//1.验证参数是否正确
+		if(userId == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.清空购物车,判断正确
+		int rs = actionCartDao.deleteCartByUserId(userId);
+		if (rs > 0) {
+			return SverResponse.createRespBySuccessMessage("成功清空购物车!");
+		}
+		return SverResponse.createByErrorMessage("清空购物车失败!");
+	}
 }

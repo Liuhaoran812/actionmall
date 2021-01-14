@@ -49,4 +49,18 @@ public class ActionCartPortalController {
 		}
 		return actionCartService.findAllCarts(user.getId());
 	}
+	/**
+	 * 清空购物车
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/clearcarts.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> clearCarts(HttpSession session){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionCartService.clearCart(user.getId());
+	}
 }

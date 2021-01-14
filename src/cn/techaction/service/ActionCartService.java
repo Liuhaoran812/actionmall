@@ -18,5 +18,11 @@ public interface ActionCartService {
 	 * @return
 	 */
 	SverResponse<ActionCartVo> findAllCarts(Integer userId);
+	/**
+	 * 清空购物车
+	 * @param userId
+	 * @return
+	 */
+	SverResponse<String> clearCart(Integer userId);
 
 }
