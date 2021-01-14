@@ -1,6 +1,7 @@
 package cn.techaction.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ActionParam {
 	private Integer id;
@@ -11,6 +12,14 @@ public class ActionParam {
 	private Integer level;
 	private Date created;
 	private Date updated;
+	private List<ActionParam> children;
+	
+	public List<ActionParam> getChildren() {
+		return children;
+	}
+	public void setChildren(List<ActionParam> children) {
+		this.children = children;
+	}
 	public Integer getId() {
 		return id;
 	}
