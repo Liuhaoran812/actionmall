@@ -1,5 +1,7 @@
 package cn.techaction.dao;
 
+import java.util.List;
+
 import cn.techaction.pojo.ActionCart;
 
 public interface ActionCartDao {
@@ -21,5 +23,11 @@ public interface ActionCartDao {
 	 * @return
 	 */
 	public Integer updateCartById(ActionCart actionCart);
+	/**
+	 * 根据用户id查找购物车中商品信息
+	 * @param userId
+	 * @return
+	 */
+	public List<ActionCart> findCartByUser(Integer userId);
 
 }

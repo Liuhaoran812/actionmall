@@ -1,11 +1,13 @@
 package cn.techaction.dao.Impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.stereotype.Repository;
 
 import cn.techaction.dao.ActionCartDao;
@@ -44,14 +46,26 @@ public class ActionCartDaoImpl implements ActionCartDao {
 	@Override
 	public Integer updateCartById(ActionCart actionCart) {
 		// TODO 自动生成的方法存根
-		String sql = "UPDATE action_carts set quantity = ? , updated = ? WHERE id = ?";
-		Object[] params = {actionCart.getQuantity(),actionCart.getUpdated(),actionCart.getId()};
+		String sql = "UPDATE action_carts set quantity = ?,updated = ?,checked = ? WHERE id = ?";
+		Object[] params = {actionCart.getQuantity(),actionCart.getUpdated(),actionCart.getChecked(),actionCart.getId()};
 		try {
 			return queryRunner.update(sql,params);
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	@Override
+	public List<ActionCart> findCartByUser(Integer userId) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT "+str+" FROM action_carts WHERE user_id = ?";
+		try {
+			return queryRunner.query(sql, new BeanListHandler<ActionCart>(ActionCart.class),userId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

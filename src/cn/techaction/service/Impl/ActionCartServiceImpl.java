@@ -1,18 +1,30 @@
 package cn.techaction.service.Impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+
 import cn.techaction.common.SverResponse;
 import cn.techaction.dao.ActionCartDao;
+import cn.techaction.dao.ActionProductDao;
 import cn.techaction.pojo.ActionCart;
+import cn.techaction.pojo.ActionProduct;
 import cn.techaction.service.ActionCartService;
+import cn.techaction.utils.CalcUtil;
+import cn.techaction.vo.ActionCartVo;
+import cn.techaction.vo.ActionCartsListVo;
 @Service
 public class ActionCartServiceImpl implements ActionCartService {
 	@Autowired
 	private ActionCartDao actionCartDao;
+	@Autowired
+	private ActionProductDao actionProductDao;
 
 	@Override
 	public SverResponse<String> saveOrUpdate(Integer userId, Integer productId, Integer count) {
@@ -47,5 +59,76 @@ public class ActionCartServiceImpl implements ActionCartService {
 			}
 		}
 		return SverResponse.createRespBySuccessMessage("商品已成功加入到购物车!");
+	}
+
+	@Override
+	public SverResponse<ActionCartVo> findAllCarts(Integer userId) {
+		// TODO 自动生成的方法存根
+		//1.验证参数是否正确
+		if(userId == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.查找用户购物车中的商品
+		List<ActionCart> list = actionCartDao.findCartByUser(userId);
+		//3.封装actionCartVo对象
+		ActionCartVo actionCartVo = createCartVo(list);
+		return SverResponse.createRespBySuccess(actionCartVo);
+	}
+	/**
+	 * 封装购物车vo对象
+	 * @param list
+	 * @return
+	 */
+	private ActionCartVo createCartVo(List<ActionCart> carts) {
+		// TODO 自动生成的方法存根
+		ActionCartVo actionCartVo = new ActionCartVo();
+		List<ActionCartsListVo> list = Lists.newArrayList();
+		//购物车商品总价格
+		BigDecimal cartTotalPrice = new BigDecimal("0");
+		if (CollectionUtils.isNotEmpty(carts)) {
+			for (ActionCart cart : carts) {
+				//转换对象
+				ActionCartsListVo listVo = new ActionCartsListVo();
+				listVo.setId(cart.getId());
+				listVo.setUserId(cart.getUser_id());
+				listVo.setProductId(cart.getProduct_id());
+				listVo.setChecked(cart.getChecked());
+				//封装商品信息
+				ActionProduct product = actionProductDao.findProductById(listVo.getProductId());
+				if (product != null) {
+					listVo.setName(product.getName());
+					listVo.setStatus(product.getStatus());
+					listVo.setPrice(product.getPrice());
+					listVo.setStock(product.getStock());
+					listVo.setIconUrl(product.getIcon_url());
+					int buyCount = 0;
+					if (product.getStock() >= cart.getQuantity()) {
+						buyCount = cart.getQuantity();
+					}else {
+						buyCount = product.getStock();
+						//更新购物车数量
+						ActionCart updateCart = new ActionCart();
+						updateCart.setId(cart.getId());
+						updateCart.setQuantity(buyCount);
+						updateCart.setUpdated(new Date());
+						//更新选中状态
+						updateCart.setChecked(cart.getChecked());
+						actionCartDao.updateCartById(updateCart);
+					}
+					listVo.setQuantity(buyCount);
+					//计算购物车中某商品的总价格
+					BigDecimal totalPrice = CalcUtil.mul(listVo.getPrice().doubleValue(), listVo.getQuantity().doubleValue());
+					listVo.setTotalPrice(totalPrice);
+					if (cart.getChecked() == 1) {
+						//在总价格中加入此商品总价格
+						cartTotalPrice = CalcUtil.add(cartTotalPrice.doubleValue(), listVo.getTotalPrice().doubleValue());
+					}
+				}
+				list.add(listVo);
+			}
+		}
+		actionCartVo.setLists(list);
+		actionCartVo.setTotalPrice(cartTotalPrice);
+		return actionCartVo;
 	}
 }
