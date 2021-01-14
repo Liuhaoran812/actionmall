@@ -38,4 +38,10 @@ public interface ActionProductService {
 	 * @return
 	 */
 	public SverResponse<String> updateStatus(Integer productId,Integer status,Integer hot);
+	/**
+	 * 前台:查找热销商品
+	 * @param num	查找数量
+	 * @return
+	 */
+	public SverResponse<List<ActionProduct>> findHotProducts(Integer num);
 }

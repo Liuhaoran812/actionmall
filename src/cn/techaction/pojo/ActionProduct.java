@@ -17,7 +17,7 @@ public class ActionProduct {
 	private Integer status;
 	private Integer is_hot;
 	private Date created;
-	private Date update;
+	private Date updated;
 	public Integer getId() {
 		return id;
 	}
@@ -96,11 +96,11 @@ public class ActionProduct {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public Date getUpdate() {
-		return update;
+	public Date getUpdated() {
+		return updated;
 	}
-	public void setUpdate(Date update) {
-		this.update = update;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 	
 }

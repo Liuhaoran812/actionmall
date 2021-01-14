@@ -81,7 +81,7 @@ public class ActionProductServiceImpl implements ActionProductService{
 		}
 		ActionProduct actionProduct=new ActionProduct();
 		actionProduct.setId(productId);
-		actionProduct.setUpdate(new Date());
+		actionProduct.setUpdated(new Date());
 		//判断修改上下架还是修改热销
 		if(status==-1) {
 			actionProduct.setIs_hot(hot);
@@ -124,7 +124,7 @@ public class ActionProductServiceImpl implements ActionProductService{
 		}
 		//判断是新增还是修改
 		if(actionProduct.getId()!=null) {
-			actionProduct.setUpdate(new Date());
+			actionProduct.setUpdated(new Date());
 			//调用dao层类中的方法修改商品信息
 			int rs=actionProductDao.updateProduct(actionProduct);
 			if(rs>0) {
@@ -136,7 +136,7 @@ public class ActionProductServiceImpl implements ActionProductService{
 			actionProduct.setStatus(ConstUtil.ProductStatus.STATUS_NEW);
 			actionProduct.setIs_hot(ConstUtil.HotStatus.NORMAL_STATUS);
 			actionProduct.setCreated(new Date());
-			actionProduct.setUpdate(new Date());
+			actionProduct.setUpdated(new Date());
 			//3.调用dao层类中的方法新增商品信息
 			int rs=actionProductDao.insertProduct(actionProduct);
 			if(rs>0) {
@@ -144,5 +144,12 @@ public class ActionProductServiceImpl implements ActionProductService{
 			}
 			return SverResponse.createByErrorMessage("商品新增失败!");
 		}
+	}
+	@Override
+	public SverResponse<List<ActionProduct>> findHotProducts(Integer num) {
+		// TODO 自动生成的方法存根
+		//直接查询所需数据
+		List<ActionProduct> actionProducts = actionProductDao.findHotProducts(num);
+		return SverResponse.createRespBySuccess(actionProducts);
 	}
 }

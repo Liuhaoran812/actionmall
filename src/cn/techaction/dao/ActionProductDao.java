@@ -40,4 +40,10 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public int updateProduct(ActionProduct product);
+	/**
+	 * 查找热销商品
+	 * @param num
+	 * @return
+	 */
+	public List<ActionProduct> findHotProducts(Integer num);
 }

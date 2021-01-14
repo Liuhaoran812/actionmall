@@ -116,7 +116,7 @@ public class ActionProductDaoImpl implements ActionProductDao{
 				+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		Object[] params= {product.getName(),product.getProduct_id(),product.getParts_id(),product.getIcon_url()
 				,product.getSub_images(),product.getDetail(),product.getSpec_param(),product.getPrice()
-				,product.getStock(),product.getStatus(),product.getIs_hot(),product.getCreated(),product.getUpdate()};
+				,product.getStock(),product.getStatus(),product.getIs_hot(),product.getCreated(),product.getUpdated()};
 		try {
 			return queryRunner.update(sql, params);
 		} catch (SQLException e) {
@@ -130,7 +130,7 @@ public class ActionProductDaoImpl implements ActionProductDao{
 		// TODO 自动生成的方法存根
 		String sql="UPDATE action_products SET updated=?";
 		List<Object> params=new ArrayList<>();
-		params.add(product.getUpdate());
+		params.add(product.getUpdated());
 		if(!StringUtils.isEmpty(product.getName())) {
 			sql+=",name=?";
 			params.add(product.getName());
@@ -183,6 +183,26 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			// TODO: handle exception
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	@Override
+	public List<ActionProduct> findHotProducts(Integer num) {
+		// TODO 自动生成的方法存根
+		String sql="SELECT "+str+" FROM action_products where is_hot=1 and status=2 "
+				+ "order by updated,id desc";
+		if(num != null) {
+			sql+=" limit 0,?";
+		}
+		try {
+			if(num != null) {
+				return queryRunner.query(sql,new BeanListHandler<ActionProduct>(ActionProduct.class),num);
+			}else {
+				return queryRunner.query(sql,new BeanListHandler<ActionProduct>(ActionProduct.class));
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
