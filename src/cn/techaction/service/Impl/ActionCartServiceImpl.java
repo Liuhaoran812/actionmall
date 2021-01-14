@@ -181,4 +181,16 @@ public class ActionCartServiceImpl implements ActionCartService {
 		//3.返回所有购物车信息
 		return findAllCarts(userId);
 	}
+
+	@Override
+	public SverResponse<Integer> getCartsCount(Integer userId) {
+		// TODO 自动生成的方法存根
+		//1.验证参数是否正确
+		if(userId == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.返回购物车中商品数量
+		int count = actionCartDao.getCartCountByUserId(userId);
+		return SverResponse.createRespBySuccess(Integer.valueOf(count));
+	}
 }

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.springframework.stereotype.Repository;
 
 import cn.techaction.dao.ActionCartDao;
@@ -109,6 +110,18 @@ public class ActionCartDaoImpl implements ActionCartDao {
 		String sql = "DELETE FROM action_carts WHERE user_id = ? and product_id = ?";
 		try {
 			return queryRunner.update(sql, userId,productId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	@Override
+	public int getCartCountByUserId(Integer userId) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT count(id) as num FROM action_carts WHERE user_id = ?";
+		try {
+			return queryRunner.query(sql, new ColumnListHandler<Long>("num"),userId).get(0).intValue();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

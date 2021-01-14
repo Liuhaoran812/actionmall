@@ -40,5 +40,11 @@ public interface ActionCartService {
 	 * @return
 	 */
 	SverResponse<ActionCartVo> deleteCart(Integer userId, Integer productId);
+	/**
+	 * 获取登录用户购物车中商品的个数
+	 * @param userId
+	 * @return
+	 */
+	SverResponse<Integer> getCartsCount(Integer userId);
 
 }

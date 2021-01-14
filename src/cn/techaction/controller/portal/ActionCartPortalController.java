@@ -95,4 +95,18 @@ public class ActionCartPortalController {
 		}
 		return actionCartService.deleteCart(user.getId(),productId);
 	}
+	/**
+	 * 购物车商品数量
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/getcartscount.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<Integer> getCartsCount(HttpSession session){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionCartService.getCartsCount(user.getId());
+	}
 }
