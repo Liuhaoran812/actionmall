@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -212,6 +213,18 @@ public class ActionProductDaoImpl implements ActionProductDao{
 				+ "order by updated desc";
 		try {
 			return queryRunner.query(sql, new BeanListHandler<ActionProduct>(ActionProduct.class),categoryId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public ActionProduct findProductById(Integer id) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT "+str+" FROM action_products where id=?";
+		try {
+			return queryRunner.query(sql, new BeanHandler<ActionProduct>(ActionProduct.class),id);
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

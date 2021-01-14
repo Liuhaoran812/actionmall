@@ -50,4 +50,10 @@ public interface ActionProductService {
 	 * @return
 	 */
 	public SverResponse<ActionProductFloorVo> findFloorProducts();
+	/**
+	 * 前台:根据商品编号查找商品信息
+	 * @param productId
+	 * @return
+	 */
+	public SverResponse<ActionProduct> findProductDetailForPortal(Integer productId);
 }

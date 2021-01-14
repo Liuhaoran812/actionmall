@@ -169,4 +169,22 @@ public class ActionProductServiceImpl implements ActionProductService{
 		actionProductFloorVo.setFourFloor(products4);
 		return SverResponse.createRespBySuccess(actionProductFloorVo);
 	}
+	@Override
+	public SverResponse<ActionProduct> findProductDetailForPortal(Integer productId) {
+		// TODO 自动生成的方法存根
+		//1.判断商品编号是否为空
+		if(productId == null) {
+			return SverResponse.createByErrorMessage("商品编号不能为空!");
+		}
+		//2.查询商品详情
+		ActionProduct actionProduct=actionProductDao.findProductById(productId);
+		//3.判断商品是否下架
+		if(actionProduct == null) {
+			return SverResponse.createByErrorMessage("产品不存在!");
+		}
+		if(actionProduct.getStatus()==ConstUtil.ProductStatus.STATUS_OFF_SALE) {
+			return SverResponse.createByErrorMessage("产品已经下架!");
+		}
+		return SverResponse.createRespBySuccess(actionProduct);
+	}
 }
