@@ -49,6 +49,59 @@ public class ActionAddressPortalController {
 		return SverResponse.createByErrorMessage(result.getMsg());
 		
 	}
-	
+	/**
+	 * 删除地址
+	 * @param session
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/deleteaddress.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<List<ActionAddress>> deleteAddress(HttpSession session,Integer id){
+		User user=(User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后在进行操作！");
+		}
+		//隐性删除地址
+		SverResponse<String> result = aAddrService.delAddress(user.getId(),id);
+		//删除成功后,返回当前用户所有地址
+		if (result.isSuccess()) {
+			return aAddrService.findAddrsByUserId(user.getId());
+		}
+		return SverResponse.createByErrorMessage(result.getMsg());
+	}
+	/**
+	 * 设置默认地址
+	 * @param session
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/setdefault.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<List<ActionAddress>> setDefault(HttpSession session,Integer id){
+		User user=(User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后在进行操作！");
+		}
+		SverResponse<String> result = aAddrService.updateAddrDefaultStatus(user.getId(),id);
+		if (result.isSuccess()) {
+			return aAddrService.findAddrsByUserId(user.getId());
+		}
+		return SverResponse.createByErrorMessage(result.getMsg());
+	}
+	/**
+	 * 查找登录用户的所有地址信息
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/findaddrs.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<List<ActionAddress>> findAddrs(HttpSession session){
+		User user=(User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后在进行操作！");
+		}
+		return aAddrService.findAddrsByUserId(user.getId());
+	}
 	
 }

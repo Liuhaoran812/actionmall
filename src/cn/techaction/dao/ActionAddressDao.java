@@ -39,5 +39,10 @@ public interface ActionAddressDao {
 	 * @return
 	 */
 	public List<ActionAddress> findAddrsByUserId(Integer userid);
-
+	/**
+	 * 读取用户默认地址
+	 * @param userId
+	 * @return
+	 */
+	public ActionAddress findDefaultAddr(Integer userId);
 }

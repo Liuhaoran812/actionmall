@@ -27,5 +27,19 @@ public interface ActionAddrService {
 	 * @return
 	 */
 	public SverResponse<List<ActionAddress>> findAddrsByUserId(Integer userid);
+	/**
+	 * 根据id删除收件人地址信息
+	 * @param userId
+	 * @param id
+	 * @return
+	 */
+	public SverResponse<String> delAddress(Integer userId, Integer id);
+	/**
+	 * 更新默认地址
+	 * @param userId
+	 * @param id
+	 * @return
+	 */
+	public SverResponse<String> updateAddrDefaultStatus(Integer userId, Integer id);
 
 }

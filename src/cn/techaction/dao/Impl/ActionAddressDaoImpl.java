@@ -139,5 +139,19 @@ public class ActionAddressDaoImpl implements ActionAddressDao {
 			return null;
 		}
 	}
-		
+	@Override
+	public ActionAddress findDefaultAddr(Integer userId) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT id,user_id,name,phone,mobile,province,city,district,addr,zip"
+				+ ",default_addr,del_state,created,updated FROM action_address WHERE user_id = ?"
+				+ " and del_state = 0 and default_addr = 1";
+		try {
+			return queryRunner.query(sql, new BeanHandler<ActionAddress>(ActionAddress.class),userId);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
