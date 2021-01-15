@@ -192,4 +192,19 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		}
 		return SverResponse.createByErrorMessage("订单操作失败!");
 	}
+	@Override
+	public SverResponse<ActionOrderVo> findOrderDetail(Integer userId, Long orderNo) {
+		// TODO 自动生成的方法存根
+		//1.判断参数是否合法
+		if (userId == null || orderNo == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.查找订单,封装vo
+		ActionOrder order = actionOrderDao.findOrderByUserAndOrderNo(userId, orderNo);
+		if (order == null) {
+			return SverResponse.createByErrorMessage("该用户订单不存在,或已删除!");
+		}
+		ActionOrderVo orderVo = createOrderVo(order, true);
+		return SverResponse.createRespBySuccess(orderVo);
+	}
 }

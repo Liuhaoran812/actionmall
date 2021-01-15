@@ -71,4 +71,19 @@ public class ActionOrderPortalController {
 		}
 		return actionOrderService.cancelOrConfirmOrder(user.getId(),orderNo);
 	}
+	/**
+	 * 获取订单详细信息
+	 * @param session
+	 * @param OrderNo
+	 * @return
+	 */
+	@RequestMapping(value="/getdetail.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<ActionOrderVo> getDetail(HttpSession session,Long orderNo){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionOrderService.findOrderDetail(user.getId(),orderNo);
+	}
 }

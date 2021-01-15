@@ -21,5 +21,12 @@ public interface ActionOrderService {
 	 * @return
 	 */
 	public SverResponse<String> cancelOrConfirmOrder(Integer userId, Long orderNo);
+	/**
+	 * 根据编号获取订单详情
+	 * @param userId
+	 * @param orderNo
+	 * @return
+	 */
+	public SverResponse<ActionOrderVo> findOrderDetail(Integer userId, Long orderNo);
 
 }
