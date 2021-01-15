@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.springframework.stereotype.Repository;
 
 import cn.techaction.dao.ActionAddressDao;
@@ -29,4 +30,36 @@ public class ActionAddressDaoImpl implements ActionAddressDao {
 			return null;
 		}
 	}
+
+	@Override
+	public int findDefaultAddrByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		String sql="select count(id) as num from action_adress where user_id=? and default_addr=1";
+		try {
+			return queryRunner.query(sql, new ColumnListHandler<Long>("num"),userId).get(0).intValue();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}		
+	}
+
+	@Override
+	public int insertAddress(ActionAddress addr) {
+		// TODO Auto-generated method stub
+		/*String sql="insert into action_address(user_id,name,phone,"
+				+ "mobile,province,city,district,addr,zip,default_addr,created,updated) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object[] params= {
+				//addr.getUser_id(),addr.getName(),addr
+		};
+		try {
+			//return 
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}*/
+		return 0;
+	}
+		
 }
