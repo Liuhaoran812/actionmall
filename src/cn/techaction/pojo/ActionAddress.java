@@ -14,7 +14,7 @@ public class ActionAddress {
 	private String addr;
 	private String zip;
 	private Integer default_addr;
-	private Integer del_status;
+	private Integer del_state;
 	private Date created;
 	private Date updated;
 	public Integer getId() {
@@ -83,11 +83,12 @@ public class ActionAddress {
 	public void setDefault_addr(Integer default_addr) {
 		this.default_addr = default_addr;
 	}
-	public Integer getDel_status() {
-		return del_status;
+	
+	public Integer getDel_state() {
+		return del_state;
 	}
-	public void setDel_status(Integer del_status) {
-		this.del_status = del_status;
+	public void setDel_state(Integer del_state) {
+		this.del_state = del_state;
 	}
 	public Date getCreated() {
 		return created;

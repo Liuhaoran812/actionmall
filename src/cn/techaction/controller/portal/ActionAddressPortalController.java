@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.techaction.common.SverResponse;
 import cn.techaction.pojo.ActionAddress;
@@ -20,7 +22,14 @@ public class ActionAddressPortalController {
 
 	@Autowired
 	private ActionAddrService aAddrService;
-	
+	/**
+	 * 新增地址
+	 * @param session
+	 * @param addr
+	 * @return
+	 */
+	@RequestMapping(value="/saveaddr.do",method=RequestMethod.POST)
+	@ResponseBody
 	public SverResponse<List<ActionAddress>> saveAddress(HttpSession session,ActionAddress addr){
 		User user=(User) session.getAttribute(ConstUtil.CUR_USER);
 		if(user==null) {
@@ -31,9 +40,13 @@ public class ActionAddressPortalController {
 		SverResponse<String> result=null;
 		if(addr.getId()==null) {
 			result=aAddrService.addAddress(addr);
+		}else {
+			result=aAddrService.updateAddress(addr);
 		}
-		
-		return null;
+		if(result.isSuccess()) {
+			return aAddrService.findAddrsByUserId(user.getId());
+		}
+		return SverResponse.createByErrorMessage(result.getMsg());
 		
 	}
 	

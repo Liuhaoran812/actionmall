@@ -1,5 +1,7 @@
 package cn.techaction.dao;
 
+import java.util.List;
+
 import cn.techaction.pojo.ActionAddress;
 
 public interface ActionAddressDao {
@@ -23,5 +25,19 @@ public interface ActionAddressDao {
 	 * @return
 	 */
 	public int insertAddress(ActionAddress addr);
+
+	/**
+	 * 更新收件人地址信息
+	 * @param addr
+	 * @return
+	 */
+	public int updateAddress(ActionAddress addr);
+
+	/**
+	 * 查询用户的收件人地址信息
+	 * @param userid
+	 * @return
+	 */
+	public List<ActionAddress> findAddrsByUserId(Integer userid);
 
 }

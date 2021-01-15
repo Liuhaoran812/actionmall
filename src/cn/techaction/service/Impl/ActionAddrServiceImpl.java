@@ -1,6 +1,7 @@
 package cn.techaction.service.Impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,33 @@ public class ActionAddrServiceImpl implements ActionAddrService {
 		addr.setCreated(new Date());
 		addr.setUpdated(new Date());
 		int rs=aAddressDao.insertAddress(addr);
-		return null;
+		if(rs>0) {
+			return SverResponse.createRespBySuccessMessage("地址新增成功！");
+		}
+		return SverResponse.createByErrorMessage("地址新增失败！");
+	}
+
+	@Override
+	public SverResponse<String> updateAddress(ActionAddress addr) {
+		// TODO Auto-generated method stub
+		if(addr==null) {
+			return SverResponse.createByErrorMessage("参数错误！");
+		}
+		addr.setUpdated(new Date());
+		int rs=aAddressDao.updateAddress(addr);
+		if(rs>0) {
+			return SverResponse.createRespBySuccessMessage("地址更新成功！");
+		}
+		return SverResponse.createByErrorMessage("地址更新失败！");
+	}
+
+	@Override
+	public SverResponse<List<ActionAddress>> findAddrsByUserId(Integer userid) {
+		// TODO Auto-generated method stub
+		if(userid==null) {
+			return SverResponse.createByErrorMessage("参数错误！");
+		}
+		List<ActionAddress> list=aAddressDao.findAddrsByUserId(userid);
+		return SverResponse.createRespBySuccess(list);
 	}
 }
