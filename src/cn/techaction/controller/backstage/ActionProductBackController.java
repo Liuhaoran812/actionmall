@@ -16,7 +16,6 @@ import cn.techaction.pojo.User;
 import cn.techaction.service.ActionProductService;
 import cn.techaction.service.ActionUserService;
 import cn.techaction.utils.ConstUtil;
-import cn.techaction.utils.PageBean;
 import cn.techaction.vo.ActionProductListVo;
 
 @Controller
