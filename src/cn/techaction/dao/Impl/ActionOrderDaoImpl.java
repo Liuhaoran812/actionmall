@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.dbutils.QueryRunner;
-
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.springframework.stereotype.Repository;
@@ -74,6 +74,54 @@ public class ActionOrderDaoImpl implements ActionOrderDao{
 			e.printStackTrace();
 			return null;
 		}	
+	}
+	@Override
+	public ActionOrder findOrderByUserAndOrderNo(Integer userId, Long orderNo) {
+		// TODO 自动生成的方法存根
+		String sql = "SELECT "+str+" FROM action_orders WHERE uid = ? and order_no = ?";
+		try {
+			return queryRunner.query(sql, new BeanHandler<ActionOrder>(ActionOrder.class),userId,orderNo);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}	
+	}
+	@Override
+	public int updateOrder(ActionOrder updateOrder) {
+		// TODO 自动生成的方法存根
+		String sql = "UPDATE action_orders set updated = ?";
+		List<Object> params = new ArrayList<>();
+		params.add(updateOrder.getUpdated());
+		if (updateOrder.getStatus() != null) {
+			sql += ",status = ?";
+			params.add(updateOrder.getStatus());
+		}
+		if (updateOrder.getPayment_time() != null) {
+			sql += ",payment_time = ?";
+			params.add(updateOrder.getPayment_time());
+		}
+		if (updateOrder.getDelivery_time() != null) {
+			sql += ",delivery_time = ?";
+			params.add(updateOrder.getDelivery_time());
+		}
+		if (updateOrder.getFinish_time() != null) {
+			sql += ",finish_time = ?";
+			params.add(updateOrder.getFinish_time());
+		}
+		if (updateOrder.getClose_time() != null) {
+			sql += ",close_time = ?";
+			params.add(updateOrder.getClose_time());
+		}
+		sql += " WHERE id = ?";
+		params.add(updateOrder.getId());
+		try {
+			return queryRunner.update(sql,params.toArray());
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

@@ -41,4 +41,34 @@ public class ActionOrderPortalController {
 		}
 		return actionOrderService.findOrders(user.getId(),status,pageNum,pageSize);
 	}
+	/**
+	 * 取消订单
+	 * @param session
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping(value="/cancelorder.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> cancelOrder(HttpSession session,Long orderNo){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionOrderService.cancelOrConfirmOrder(user.getId(),orderNo);
+	}
+	/**
+	 * 确认收货
+	 * @param session
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping(value="/confirmreceipt.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> confirmOrder(HttpSession session,Long orderNo){
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionOrderService.cancelOrConfirmOrder(user.getId(),orderNo);
+	}
 }

@@ -27,4 +27,17 @@ public interface ActionOrderDao {
 	 * @return
 	 */
 	public List<ActionOrder> findOrders(Integer userId, Integer status, int startIndex, int pageSize);
+	/**
+	 * 根据用户和订单编号查询订单信息
+	 * @param userId
+	 * @param orderNo
+	 * @return
+	 */
+	public ActionOrder findOrderByUserAndOrderNo(Integer userId, Long orderNo);
+	/**
+	 * 更新订单信息
+	 * @param updateOrder
+	 * @return
+	 */
+	public int updateOrder(ActionOrder updateOrder);
 }

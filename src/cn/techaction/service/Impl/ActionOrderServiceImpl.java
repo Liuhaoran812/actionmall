@@ -1,5 +1,6 @@
 package cn.techaction.service.Impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,5 +156,40 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		orderVo.setFinishTime(DateUtils.date2Str(order.getFinish_time()));
 		orderVo.setCloseTime(DateUtils.date2Str(order.getClose_time()));
 		orderVo.setCreated(DateUtils.date2Str(order.getCreated()));
+	}
+	@Override
+	public SverResponse<String> cancelOrConfirmOrder(Integer userId, Long orderNo) {
+		// TODO 自动生成的方法存根
+		//1.查询订单
+		ActionOrder order = actionOrderDao.findOrderByUserAndOrderNo(userId,orderNo);
+		//2.判断订单是否存在
+		if (order == null) {
+			return SverResponse.createByErrorMessage("该用户订单不存在,或已删除!");
+		}
+		//3.订单是否已付款
+		if (order.getStatus() == ConstUtil.OrderStatus.ORDER_PAID) {
+			return SverResponse.createByErrorMessage("该订单已经付款,无法取消");
+		}
+		//4.根据状态修改订单信息
+		ActionOrder updateOrder = new ActionOrder();
+		updateOrder.setId(order.getId());
+		updateOrder.setUpdated(new Date());
+		//5.为取消订单操作
+		if (order.getStatus() == ConstUtil.OrderStatus.ORDER_NO_PAY) {
+			updateOrder.setStatus(ConstUtil.OrderStatus.ORDER_CANCELED);
+			int rs = actionOrderDao.updateOrder(updateOrder);
+			if (rs > 0) {
+				return SverResponse.createRespBySuccessMessage("取消订单成功!");
+			}
+		}
+		//6.为确认收货操作
+		if (order.getStatus() == ConstUtil.OrderStatus.ORDER_SHIPPED) {
+			updateOrder.setStatus(ConstUtil.OrderStatus.ORDER_SUCCESS);
+			int rs = actionOrderDao.updateOrder(updateOrder);
+			if (rs > 0) {
+				return SverResponse.createRespBySuccessMessage("确认收货成功!");
+			}
+		}
+		return SverResponse.createByErrorMessage("订单操作失败!");
 	}
 }

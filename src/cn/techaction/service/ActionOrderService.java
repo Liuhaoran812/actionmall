@@ -14,5 +14,12 @@ public interface ActionOrderService {
 	 * @return
 	 */
 	public SverResponse<PageBean<ActionOrderVo>> findOrders(Integer userId, Integer status, int pageNum, int pageSize);
+	/**
+	 * 取消订单
+	 * @param userId
+	 * @param orderNo
+	 * @return
+	 */
+	public SverResponse<String> cancelOrConfirmOrder(Integer userId, Long orderNo);
 
 }
