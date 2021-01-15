@@ -55,4 +55,10 @@ public interface ActionProductDao {
 	 * @return
 	 */
 	public List<ActionProduct> findProducts(ActionProduct actionProduct, int startIndex, int pageSize);
+	/**
+	 * 根据配件类型Id查找商品信息
+	 * @param partsId
+	 * @return
+	 */
+	public List<ActionProduct> findProductsByPartsId(Integer partsId);
 }

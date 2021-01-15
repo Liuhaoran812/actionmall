@@ -253,5 +253,18 @@ public class ActionProductDaoImpl implements ActionProductDao{
 			return null;
 		}
 	}
+	@Override
+	public List<ActionProduct> findProductsByPartsId(Integer partsId) {
+		// TODO Auto-generated method stub
+		String sql="SELECT "+str+" FROM action_products where parts_id=? order by updated desc";
+		try {
+			return queryRunner.query(sql, new BeanListHandler<ActionProduct>(ActionProduct.class),partsId);
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	
+	}
 	
 }

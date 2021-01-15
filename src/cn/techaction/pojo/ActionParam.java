@@ -38,7 +38,7 @@ public class ActionParam {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	public void setStatus(boolean status) {
