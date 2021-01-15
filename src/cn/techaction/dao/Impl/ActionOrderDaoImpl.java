@@ -141,5 +141,22 @@ public class ActionOrderDaoImpl implements ActionOrderDao{
 			return 0;
 		}
 	}
+	@Override
+	public List<ActionOrder> searchOrders(Long orderNo) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM action_orders WHERE 1=1";
+		try {
+			if(orderNo!=null) {
+				sql+=" and order_no=? order by created";
+				return queryRunner.query(sql, new BeanListHandler<ActionOrder>(ActionOrder.class),orderNo);
+			}
+			return queryRunner.query(sql, new BeanListHandler<ActionOrder>(ActionOrder.class));
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}	
+	}
+
 
 }

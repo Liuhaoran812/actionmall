@@ -46,4 +46,11 @@ public interface ActionOrderDao {
 	 * @return
 	 */
 	public int insertOrder(ActionOrder order);
+	
+	/**
+	 * 根据订单号查询订单信息
+	 * @param orderNo
+	 * @return
+	 */
+	public List<ActionOrder> searchOrders(Long orderNo);
 }

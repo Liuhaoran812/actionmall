@@ -342,4 +342,41 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		}
 		return SverResponse.createRespBySuccess(items);
 	}
+	@Override
+	public SverResponse<List<ActionOrderVo>> findOrderForNoPages(Long orderNo) {
+		// TODO Auto-generated method stub
+		//1.调用dao层的方法
+		List<ActionOrder> orders=actionOrderDao.searchOrders(orderNo);
+		//2.转换成vo对象
+		List<ActionOrderVo> vos=Lists.newArrayList();
+		for(ActionOrder temp:orders) {
+			//转换成vo
+			vos.add(this.createOrderVo1(temp, true));
+		}
+		return SverResponse.createRespBySuccess(vos);
+	}
+	/**
+	 * 将order转换成vo对象
+	 * @param order
+	 * @param hasAddress
+	 * @return
+	 */
+	private ActionOrderVo createOrderVo1(ActionOrder order, boolean hasAddress) {
+		// TODO 自动生成的方法存根
+		ActionOrderVo orderVo = new ActionOrderVo();
+		//设置普通属性
+		setNormalProperty(order,orderVo);
+		//设置地址
+		setAddressProperty(order,orderVo,true);
+		//设置订单详情
+		//根据订单号得到订单详情集合
+		List<ActionOrderItem> orderItems = actionOrderItemDao.getItemsByOrderNo(order.getOrder_no());
+		List<ActionOrderItemVo> vos=Lists.newArrayList();
+		for(ActionOrderItem item:orderItems) {
+			vos.add(this.createOrderItemVo(item));
+		}
+		orderVo.setOrderItem(vos);
+		return orderVo;
+	}
+
 }
