@@ -82,6 +82,44 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		return orderVo;
 	}
 	/**
+	 * 将order转换成vo对象
+	 * @param order
+	 * @param hasAddress
+	 * @return
+	 */
+	private ActionOrderVo createOrderVo1(ActionOrder order, boolean hasAddress) {
+		// TODO 自动生成的方法存根
+		ActionOrderVo orderVo = new ActionOrderVo();
+		//设置普通属性
+		setNormalProperty(order,orderVo);
+		//设置地址
+		setAddressProperty(order,orderVo,true);
+		//设置订单详情
+		//根据订单号得到订单详情集合
+		List<ActionOrderItem> orderItems = actionOrderItemDao.getItemsByOrderNo(order.getOrder_no());
+		List<ActionOrderItemVo> vos=Lists.newArrayList();
+		for(ActionOrderItem item:orderItems) {
+			vos.add(this.createOrderItemVo(item));
+		}
+		orderVo.setOrderItem(vos);
+		return orderVo;
+	}
+	/**
+	 * 封装订单vo
+	 * @param order
+	 * @param orderItems
+	 * @return
+	 */
+	private ActionOrderVo createOrderVo2(ActionOrder order, List<ActionOrderItem> orderItems) {
+		// TODO 自动生成的方法存根
+		ActionOrderVo orderVo = new ActionOrderVo();
+		setNormalProperty(order,orderVo);
+		setAddressProperty(order,orderVo,true);
+		//设置订单项
+		setOrderItemProperty(orderItems,orderVo);
+		return orderVo;
+	}
+	/**
 	 * 封装订单项属性
 	 * @param orderItems
 	 * @param orderVo
@@ -252,9 +290,23 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		}
 		actionOrderItemDao.batchInsert(orderItems);
 		//7.减少商品表中的库存
+		for (ActionOrderItem orderItem : orderItems) {
+			ActionProduct product = actionProductDao.findProductById(orderItem.getGoods_id());
+			//减少库存
+			product.setStock(product.getStock() - orderItem.getQuantity());
+			product.setUpdated(new Date());
+			//更新库存
+			actionProductDao.updateProduct(product);
+		}
 		//8.清空购物车
+		for (ActionCart cart:carts) {
+			if (cart.getChecked() == 1) {
+				actionCartDao.deleteCartByUserIdAndProductId(userId, cart.getProduct_id());
+			}
+		}
 		//9.封装返回前端
-		return null;
+		ActionOrderVo orderVo = createOrderVo2(order,orderItems);
+		return SverResponse.createRespBySuccess(orderVo);
 	}
 	/**
 	 * 保存订单
@@ -313,6 +365,7 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 			return SverResponse.createByErrorMessage("购物车为空,请选择要购买的商品!");
 		}
 		for (ActionCart cart : carts) {
+			if (cart.getChecked() == 1) {
 			//查看购物车中商品状态
 			ActionProduct product = actionProductDao.findProductById(cart.getProduct_id());
 			//查看商品状态
@@ -325,19 +378,18 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 				//如果商品库存不足,则返回提示信息
 				return SverResponse.createByErrorMessage("商品"+product.getName()+"库存不足!");
 			}
-			//选中的商品封装订单项
-			if (cart.getChecked() == 1) {
-				ActionOrderItem orderItem = new ActionOrderItem();
-				orderItem.setUid(userId);
-				orderItem.setGoods_name(product.getName());
-				orderItem.setGoods_id(product.getId());
-				orderItem.setIcon_url(product.getIcon_url());
-				orderItem.setPrice(product.getPrice());
-				orderItem.setQuantity(cart.getQuantity());
-				orderItem.setTotal_price(CalcUtil.mul(product.getPrice().doubleValue(), cart.getQuantity().doubleValue()));
-				orderItem.setCreated(new Date());
-				orderItem.setUpdated(new Date());
-				items.add(orderItem);
+			//封装订单项
+			ActionOrderItem orderItem = new ActionOrderItem();
+			orderItem.setUid(userId);
+			orderItem.setGoods_name(product.getName());
+			orderItem.setGoods_id(product.getId());
+			orderItem.setIcon_url(product.getIcon_url());
+			orderItem.setPrice(product.getPrice());
+			orderItem.setQuantity(cart.getQuantity());
+			orderItem.setTotal_price(CalcUtil.mul(product.getPrice().doubleValue(), cart.getQuantity().doubleValue()));
+			orderItem.setCreated(new Date());
+			orderItem.setUpdated(new Date());
+			items.add(orderItem);
 			}
 		}
 		return SverResponse.createRespBySuccess(items);
@@ -355,28 +407,4 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		}
 		return SverResponse.createRespBySuccess(vos);
 	}
-	/**
-	 * 将order转换成vo对象
-	 * @param order
-	 * @param hasAddress
-	 * @return
-	 */
-	private ActionOrderVo createOrderVo1(ActionOrder order, boolean hasAddress) {
-		// TODO 自动生成的方法存根
-		ActionOrderVo orderVo = new ActionOrderVo();
-		//设置普通属性
-		setNormalProperty(order,orderVo);
-		//设置地址
-		setAddressProperty(order,orderVo,true);
-		//设置订单详情
-		//根据订单号得到订单详情集合
-		List<ActionOrderItem> orderItems = actionOrderItemDao.getItemsByOrderNo(order.getOrder_no());
-		List<ActionOrderItemVo> vos=Lists.newArrayList();
-		for(ActionOrderItem item:orderItems) {
-			vos.add(this.createOrderItemVo(item));
-		}
-		orderVo.setOrderItem(vos);
-		return orderVo;
-	}
-
 }

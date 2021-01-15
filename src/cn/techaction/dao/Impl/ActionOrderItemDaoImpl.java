@@ -32,7 +32,22 @@ public class ActionOrderItemDaoImpl implements ActionOrderItemDao {
 	@Override
 	public int[] batchInsert(List<ActionOrderItem> orderItems) {
 		// TODO 自动生成的方法存根
-		String sql = "INSERT INTO action_order_items(uid,order_no,good_id,good_name) VALUES()";
-		return null;
+		String sql = "INSERT INTO action_order_items(uid,order_no,goods_id,goods_name,icon_url,price,quantity,"
+				+ "total_price,created,updated) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		Object[][] params =	new Object[orderItems.size()][]; 
+		for (int i = 0; i < orderItems.size(); i++) {
+			ActionOrderItem item = orderItems.get(i);
+			params[i] = new Object[] {
+					item.getUid(),item.getOrder_no(),item.getGoods_id(),item.getGoods_name(),item.getIcon_url(),
+					item.getPrice(),item.getQuantity(),item.getTotal_price(),item.getCreated(),item.getUpdated()
+			};
+		}
+		try {
+			return queryRunner.batch(sql, params);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
