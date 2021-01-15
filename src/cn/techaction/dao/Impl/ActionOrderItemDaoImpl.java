@@ -29,4 +29,10 @@ public class ActionOrderItemDaoImpl implements ActionOrderItemDao {
 			return null;
 		}
 	}
+	@Override
+	public int[] batchInsert(List<ActionOrderItem> orderItems) {
+		// TODO 自动生成的方法存根
+		String sql = "INSERT INTO action_order_items(uid,order_no,good_id,good_name) VALUES()";
+		return null;
+	}
 }

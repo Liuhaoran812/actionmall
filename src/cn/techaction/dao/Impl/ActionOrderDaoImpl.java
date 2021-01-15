@@ -123,5 +123,23 @@ public class ActionOrderDaoImpl implements ActionOrderDao{
 			return 0;
 		}
 	}
+	@Override
+	public int insertOrder(ActionOrder order) {
+		// TODO 自动生成的方法存根
+		String sql = "INSERT INTO action_orders(order_no,uid,addr_id,amount,type,freight,status"
+				+ ",payment_time,delivery_time,finish_time,close_time,updated,created)"
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object[] params = {order.getOrder_no(),order.getUid(),order.getAddr_id(),order.getAmount(),
+				order.getType(),order.getFreight(),order.getStatus(),order.getPayment_time(),
+				order.getDelivery_time(),order.getFinish_time(),order.getClose_time(),order.getUpdated(),
+				order.getCreated()};
+		try {
+			return queryRunner.update(sql,params);
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 }

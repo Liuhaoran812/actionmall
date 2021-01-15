@@ -28,5 +28,12 @@ public interface ActionOrderService {
 	 * @return
 	 */
 	public SverResponse<ActionOrderVo> findOrderDetail(Integer userId, Long orderNo);
+	/**
+	 * 生成订单
+	 * @param userId
+	 * @param addrId
+	 * @return
+	 */
+	public SverResponse<ActionOrderVo> generateOrder(Integer userId, Integer addrId);
 
 }

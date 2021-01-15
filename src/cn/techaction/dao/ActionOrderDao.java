@@ -40,4 +40,10 @@ public interface ActionOrderDao {
 	 * @return
 	 */
 	public int updateOrder(ActionOrder updateOrder);
+	/**
+	 * 保存订单信息
+	 * @param order
+	 * @return
+	 */
+	public int insertOrder(ActionOrder order);
 }

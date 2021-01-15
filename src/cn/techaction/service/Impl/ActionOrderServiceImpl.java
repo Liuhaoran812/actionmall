@@ -1,8 +1,11 @@
 package cn.techaction.service.Impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +13,17 @@ import com.google.common.collect.Lists;
 
 import cn.techaction.common.SverResponse;
 import cn.techaction.dao.ActionAddressDao;
+import cn.techaction.dao.ActionCartDao;
 import cn.techaction.dao.ActionOrderDao;
 import cn.techaction.dao.ActionOrderItemDao;
+import cn.techaction.dao.ActionProductDao;
 import cn.techaction.pojo.ActionAddress;
+import cn.techaction.pojo.ActionCart;
 import cn.techaction.pojo.ActionOrder;
 import cn.techaction.pojo.ActionOrderItem;
+import cn.techaction.pojo.ActionProduct;
 import cn.techaction.service.ActionOrderService;
+import cn.techaction.utils.CalcUtil;
 import cn.techaction.utils.ConstUtil;
 import cn.techaction.utils.DateUtils;
 import cn.techaction.utils.PageBean;
@@ -31,6 +39,11 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 	private ActionAddressDao actionAddressDao;
 	@Autowired
 	private ActionOrderItemDao actionOrderItemDao;
+	@Autowired
+	private ActionCartDao actionCartDao;
+	@Autowired
+	private ActionProductDao actionProductDao;
+	
 	@Override
 	public SverResponse<PageBean<ActionOrderVo>> findOrders(Integer userId, Integer status, int pageNum, int pageSize) {
 		// TODO 自动生成的方法存根
@@ -206,5 +219,127 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		}
 		ActionOrderVo orderVo = createOrderVo(order, true);
 		return SverResponse.createRespBySuccess(orderVo);
+	}
+	@Override
+	public SverResponse<ActionOrderVo> generateOrder(Integer userId, Integer addrId) {
+		// TODO 自动生成的方法存根
+		//1.判断参数是否合法
+		if (userId == null || addrId == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.提取购物车中信息
+		List<ActionCart> carts = actionCartDao.findCartByUser(userId);
+		//3.计算购物车中每件商品总价格并生成订单项
+		SverResponse resp = this.cart2OrderItem(userId,carts);
+		if (!resp.isSuccess()) {
+			return resp;
+		}
+		//4.取出订单项中的价格计算订单总价格
+		List<ActionOrderItem> orderItems = (List<ActionOrderItem>) resp.getData();
+		BigDecimal totalPrice = this.calcOrderTotalPrice(orderItems);
+		//5.生成订单,插入数据
+		ActionOrder order = saveOrder(userId,addrId,totalPrice);
+		if (order == null) {
+			return SverResponse.createByErrorMessage("订单产生错误,请检查后重新提交!");
+		}
+		if (CollectionUtils.isEmpty(orderItems)) {
+			return SverResponse.createByErrorMessage("订单项为空,请选择要购买的商品!");
+		}
+		//6.批量插入订单项
+		for (ActionOrderItem orderItem : orderItems) {
+			//为订单项设置订单主键
+			orderItem.setOrder_no(order.getOrder_no());
+		}
+		actionOrderItemDao.batchInsert(orderItems);
+		//7.减少商品表中的库存
+		//8.清空购物车
+		//9.封装返回前端
+		return null;
+	}
+	/**
+	 * 保存订单
+	 * @param userId
+	 * @param addrId
+	 * @param totalPrice
+	 * @return
+	 */
+	private ActionOrder saveOrder(Integer userId, Integer addrId, BigDecimal totalPrice) {
+		// TODO 自动生成的方法存根
+		ActionOrder order = new ActionOrder();
+		//生成订单号
+		long currentTime = System.currentTimeMillis();
+		long orderNo = currentTime + new Random().nextInt(100);
+		order.setOrder_no(orderNo);
+		order.setStatus(ConstUtil.OrderStatus.ORDER_NO_PAY);	//默认未付款
+		order.setType(ConstUtil.PaymentType.PAY_ON_LINE);		//在线支付
+		order.setFreight(0);
+		order.setAmount(totalPrice);
+		order.setAddr_id(addrId);
+		order.setUid(userId);
+		order.setUpdated(new Date());
+		order.setCreated(new Date());
+		//插入订单
+		int rs = actionOrderDao.insertOrder(order);
+		if (rs > 0) {
+			//插入成功
+			return order;
+		}
+		return null;
+	}
+	/**
+	 * 计算订单总价格
+	 * @param orderItems
+	 * @return
+	 */
+	private BigDecimal calcOrderTotalPrice(List<ActionOrderItem> orderItems) {
+		// TODO 自动生成的方法存根
+		BigDecimal totalPrice = new BigDecimal("0");
+		for (ActionOrderItem item : orderItems) {
+			totalPrice = CalcUtil.add(totalPrice.doubleValue(), item.getTotal_price().doubleValue());
+		}
+		return totalPrice;
+	}
+	/**
+	 * 将购物车中商品封装为订单项
+	 * @param userId
+	 * @param carts
+	 * @return
+	 */
+	private SverResponse cart2OrderItem(Integer userId, List<ActionCart> carts) {
+		// TODO 自动生成的方法存根
+		List<ActionOrderItem> items = Lists.newArrayList();
+		//判断购物车是否为空
+		if (CollectionUtils.isEmpty(carts)) {
+			return SverResponse.createByErrorMessage("购物车为空,请选择要购买的商品!");
+		}
+		for (ActionCart cart : carts) {
+			//查看购物车中商品状态
+			ActionProduct product = actionProductDao.findProductById(cart.getProduct_id());
+			//查看商品状态
+			if (ConstUtil.ProductStatus.STATUS_ON_SALE != product.getStatus()) {
+				//如果商品不是上架在售,则返回提示信息
+				return SverResponse.createByErrorMessage("商品"+product.getName()+"已经下架,不能在线购买!");
+			}
+			//查看库存
+			if (cart.getQuantity() > product.getStock()) {
+				//如果商品库存不足,则返回提示信息
+				return SverResponse.createByErrorMessage("商品"+product.getName()+"库存不足!");
+			}
+			//选中的商品封装订单项
+			if (cart.getChecked() == 1) {
+				ActionOrderItem orderItem = new ActionOrderItem();
+				orderItem.setUid(userId);
+				orderItem.setGoods_name(product.getName());
+				orderItem.setGoods_id(product.getId());
+				orderItem.setIcon_url(product.getIcon_url());
+				orderItem.setPrice(product.getPrice());
+				orderItem.setQuantity(cart.getQuantity());
+				orderItem.setTotal_price(CalcUtil.mul(product.getPrice().doubleValue(), cart.getQuantity().doubleValue()));
+				orderItem.setCreated(new Date());
+				orderItem.setUpdated(new Date());
+				items.add(orderItem);
+			}
+		}
+		return SverResponse.createRespBySuccess(items);
 	}
 }

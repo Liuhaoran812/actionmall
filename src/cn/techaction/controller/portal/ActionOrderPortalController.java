@@ -35,6 +35,7 @@ public class ActionOrderPortalController {
 	public SverResponse<PageBean<ActionOrderVo>> getList(HttpSession session,Integer status,
 			@RequestParam(value="pageNum",defaultValue="1") int pageNum,
 			@RequestParam(value="pageSize",defaultValue="10") int pageSize){
+		//判断用户是否登陆
 		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
 		if(user == null) {
 			return SverResponse.createByErrorMessage("请登录后再操作!");
@@ -50,6 +51,7 @@ public class ActionOrderPortalController {
 	@RequestMapping(value="/cancelorder.do",method=RequestMethod.POST)
 	@ResponseBody
 	public SverResponse<String> cancelOrder(HttpSession session,Long orderNo){
+		//判断用户是否登陆
 		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
 		if(user == null) {
 			return SverResponse.createByErrorMessage("请登录后再操作!");
@@ -65,6 +67,7 @@ public class ActionOrderPortalController {
 	@RequestMapping(value="/confirmreceipt.do",method=RequestMethod.POST)
 	@ResponseBody
 	public SverResponse<String> confirmOrder(HttpSession session,Long orderNo){
+		//判断用户是否登陆
 		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
 		if(user == null) {
 			return SverResponse.createByErrorMessage("请登录后再操作!");
@@ -80,10 +83,27 @@ public class ActionOrderPortalController {
 	@RequestMapping(value="/getdetail.do",method=RequestMethod.POST)
 	@ResponseBody
 	public SverResponse<ActionOrderVo> getDetail(HttpSession session,Long orderNo){
+		//判断用户是否登陆
 		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
 		if(user == null) {
 			return SverResponse.createByErrorMessage("请登录后再操作!");
 		}
 		return actionOrderService.findOrderDetail(user.getId(),orderNo);
+	}
+	/**
+	 * 创建订单
+	 * @param session
+	 * @param addrId
+	 * @return
+	 */
+	@RequestMapping(value="/createorder.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<ActionOrderVo> createOrder(HttpSession session,Integer addrId){
+		//判断用户是否登陆
+		User user = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(user == null) {
+			return SverResponse.createByErrorMessage("请登录后再操作!");
+		}
+		return actionOrderService.generateOrder(user.getId(),addrId);
 	}
 }
