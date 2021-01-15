@@ -53,4 +53,10 @@ public interface ActionOrderDao {
 	 * @return
 	 */
 	public List<ActionOrder> searchOrders(Long orderNo);
+	/**
+	 * 根据订单号获得订单详情
+	 * @param orderNo
+	 * @return
+	 */
+	public ActionOrder findOrderDetailByOrderNo(Long orderNo);
 }

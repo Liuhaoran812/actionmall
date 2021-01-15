@@ -44,5 +44,10 @@ public interface ActionOrderService {
 	 * @return
 	 */
 	public SverResponse<List<ActionOrderVo>> findOrderForNoPages(Long orderNo);
-
+	/**
+	 * 根据订单号获得订单详情
+	 * @param orderNo
+	 * @return
+	 */
+	public SverResponse<ActionOrderVo> mgrDetail(Long orderNo);
 }

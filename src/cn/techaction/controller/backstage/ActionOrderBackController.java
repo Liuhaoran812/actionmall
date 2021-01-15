@@ -44,4 +44,27 @@ public class ActionOrderBackController {
 		return SverResponse.createByErrorMessage("您无操作权限!");
 
 	}
+	/**
+	 * 查看订单详情
+	 * @param session
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping("/getdetail.do")
+	@ResponseBody
+	public SverResponse<ActionOrderVo> getDetail(HttpSession session,Long orderNo){
+		//1.判断用户是否登陆
+		User user=(User)session.getAttribute(ConstUtil.CUR_USER);
+		if(user==null) {
+			return SverResponse.createByErrorCodeMessage(ResponseCode.UNLOGIN.getCode(), "请登录后再进行操作!");
+		}
+		//2.用户是不是管理员
+		SverResponse<String> response=userService.isAdmin(user);
+		if(response.isSuccess()) {
+			//3.调用Service中的方法:查询订单详情
+			return actionOrderService.mgrDetail(orderNo);
+		}
+				
+		return SverResponse.createByErrorMessage("您无操作权限!");
+	}
 }

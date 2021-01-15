@@ -82,35 +82,12 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		return orderVo;
 	}
 	/**
-	 * 将order转换成vo对象
-	 * @param order
-	 * @param hasAddress
-	 * @return
-	 */
-	private ActionOrderVo createOrderVo1(ActionOrder order, boolean hasAddress) {
-		// TODO 自动生成的方法存根
-		ActionOrderVo orderVo = new ActionOrderVo();
-		//设置普通属性
-		setNormalProperty(order,orderVo);
-		//设置地址
-		setAddressProperty(order,orderVo,true);
-		//设置订单详情
-		//根据订单号得到订单详情集合
-		List<ActionOrderItem> orderItems = actionOrderItemDao.getItemsByOrderNo(order.getOrder_no());
-		List<ActionOrderItemVo> vos=Lists.newArrayList();
-		for(ActionOrderItem item:orderItems) {
-			vos.add(this.createOrderItemVo(item));
-		}
-		orderVo.setOrderItem(vos);
-		return orderVo;
-	}
-	/**
 	 * 封装订单vo
 	 * @param order
 	 * @param orderItems
 	 * @return
 	 */
-	private ActionOrderVo createOrderVo2(ActionOrder order, List<ActionOrderItem> orderItems) {
+	private ActionOrderVo createOrderVo1(ActionOrder order, List<ActionOrderItem> orderItems) {
 		// TODO 自动生成的方法存根
 		ActionOrderVo orderVo = new ActionOrderVo();
 		setNormalProperty(order,orderVo);
@@ -305,7 +282,7 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 			}
 		}
 		//9.封装返回前端
-		ActionOrderVo orderVo = createOrderVo2(order,orderItems);
+		ActionOrderVo orderVo = createOrderVo1(order,orderItems);
 		return SverResponse.createRespBySuccess(orderVo);
 	}
 	/**
@@ -403,8 +380,24 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		List<ActionOrderVo> vos=Lists.newArrayList();
 		for(ActionOrder temp:orders) {
 			//转换成vo
-			vos.add(this.createOrderVo1(temp, true));
+			vos.add(this.createOrderVo(temp, true));
 		}
 		return SverResponse.createRespBySuccess(vos);
+	}
+	@Override
+	public SverResponse<ActionOrderVo> mgrDetail(Long orderNo) {
+		// TODO 自动生成的方法存根
+		//1.订单号的判断
+		if (orderNo == null) {
+			return SverResponse.createByErrorMessage("参数错误!");
+		}
+		//2.调用dao层的方法根据订单号获得订单对象ActionOrder
+		ActionOrder order = actionOrderDao.findOrderDetailByOrderNo(orderNo);
+		if (order == null) {
+			return SverResponse.createByErrorMessage("该用户订单不存在,或已删除!");
+		}
+		//3.将order对象转换成orderVo
+		ActionOrderVo orderVo = this.createOrderVo(order, true);
+		return SverResponse.createRespBySuccess(orderVo);
 	}
 }
