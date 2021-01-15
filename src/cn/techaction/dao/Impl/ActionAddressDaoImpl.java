@@ -19,7 +19,7 @@ public class ActionAddressDaoImpl implements ActionAddressDao {
 	public ActionAddress findAddrsById(Integer addrId) {
 		// TODO 自动生成的方法存根
 		String sql = "SELECT id,user_id,name,phone,mobile,province,city,district,addr,zip"
-				+ "default_addr,del_state,created,updated FROM action_address WHERE id = ?"
+				+ ",default_addr,del_state,created,updated FROM action_address WHERE id = ?"
 				+ " and del_state = 0";
 		try {
 			return queryRunner.query(sql, new BeanHandler<ActionAddress>(ActionAddress.class),addrId);

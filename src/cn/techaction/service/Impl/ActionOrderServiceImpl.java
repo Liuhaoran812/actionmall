@@ -65,7 +65,7 @@ public class ActionOrderServiceImpl implements ActionOrderService {
 		//设置订单项
 		List<ActionOrderItem> orderItems = actionOrderItemDao.getItemsByOrderNo(order.getOrder_no());
 		setOrderItemProperty(orderItems,orderVo);
-		return null;
+		return orderVo;
 	}
 	/**
 	 * 封装订单项属性
