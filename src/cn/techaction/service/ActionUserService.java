@@ -85,4 +85,10 @@ public interface ActionUserService {
 	 * @return
 	 */
 	public SverResponse<String> updatePassword(User user, String newPwd, String oldPwd);
+	/**
+	 * 得到用户密码问题
+	 * @param account
+	 * @return
+	 */
+	public SverResponse<String> getUserQusetion(String account);
 }

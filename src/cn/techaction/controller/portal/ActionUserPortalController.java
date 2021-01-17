@@ -58,6 +58,26 @@ public class ActionUserPortalController {
 		return userService.findUserByAccount(account);
 	}
 	/**
+	 * 得到用户信息
+	 */
+	@RequestMapping(value="/getuserinfo.do",method=RequestMethod.GET)
+	@ResponseBody
+	public SverResponse<User> getUserInfo(HttpSession session){
+		User curUser = (User) session.getAttribute(ConstUtil.CUR_USER);
+		if(curUser == null) {
+			return SverResponse.createByErrorMessage("用户尚未登陆!");
+		}
+		return userService.findUserByAccount(curUser.getAccount());
+	}
+	/**
+	 * 得到用户密码问题
+	 */
+	@RequestMapping(value="/getuserquestion.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> getUserQuestion(String account){
+		return userService.getUserQusetion(account);
+	}
+	/**
 	 * 验证用户密码提示问题答案
 	 * @param account
 	 * @param question

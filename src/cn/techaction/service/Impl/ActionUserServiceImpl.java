@@ -257,5 +257,20 @@ public class ActionUserServiceImpl implements ActionUserService{
 		}
 		return SverResponse.createByErrorMessage("密码修改失败!");
 	}
+	@Override
+	public SverResponse<String> getUserQusetion(String account) {
+		// TODO 自动生成的方法存根
+		//1.判断用户名是否存在
+		//1.通过用户名查找到用户
+		User user=actionUserDao.findUserByAccount(account);
+		if(user==null) {
+			return SverResponse.createByErrorMessage("用户名不存在!");
+		}
+		//2.判断用户是否设置密码问题
+		if (!user.getQuestion().isEmpty() && user.getQuestion() != null) {
+			return SverResponse.createRespBySuccessMessage(user.getQuestion());
+		}
+		return SverResponse.createByErrorMessage("未设置密码提示问题!");
+	}
 	
 }
