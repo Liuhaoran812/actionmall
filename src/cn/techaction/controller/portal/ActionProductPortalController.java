@@ -40,7 +40,7 @@ public class ActionProductPortalController {
 	public SverResponse<ActionProductFloorVo> findFloorProducts(){
 		return actionProductService.findFloorProducts();
 	}
-	/**
+	/**	
 	 * 根据商品编号获取商品详情
 	 * @param productId
 	 * @return

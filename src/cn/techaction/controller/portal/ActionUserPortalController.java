@@ -172,4 +172,15 @@ public class ActionUserPortalController {
 		user1.setPassword("-1");
 		return user1;
 	}
+	/**
+	 * 注册信息监测
+	 * @param info
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value="/do_check_info.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> checkInfo(String info,String type){
+		return userService.checkValidation(info, type);
+	}
 }
