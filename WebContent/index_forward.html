@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>机械配件商城</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/mall.css?15613145">
+</head>
+<body>
+	<!-- 顶部导航条 -->
+	<header class="header_outbox">
+		<div class="header_inbox">
+			<div class="loginbox">
+				<p>欢迎访问机械配件商城</p>
+				<a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ 访问官网 ]</a>
+				<span id="register_info">
+                    <a href="/mall/login.html"
+					   class="login">&nbsp;&nbsp;&nbsp;&nbsp;登录&nbsp;&nbsp;</a>
+                    <img src="img/common/header_line.jpg">
+                    <a href="#" target="_blank">&nbsp;&nbsp;免费注册&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </span>
+				<span style="display: none" id="login_info">
+                    <a href="#" id="headerUsername" class="login"></a>
+                    <img src="img/common/header_line.jpg">
+                    <a href="#" id="headerLogout" class="login">&nbsp;&nbsp;退出</a>
+                </span>
+			</div>
+			<ul class="my_action">
+				<li style="list-style-type:none;">
+					<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的关注</a>
+				</li>
+				<li style="list-style-type:none;">
+					<a href="car.html">
+						<img src="img/common/mix_car.png" width="20" height="20">
+						<span id="cartQuantity">[0]</span>购物车
+					</a>
+				</li>
+				<li class="nav-pull-down my-shop"  style="list-style-type:none;">
+					<a href="#">我的商城</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<!-- 内容主题 -->
+	<div class="container">
+		<!-- 搜索框 -->
+		<div class="search">
+			<img src="img/common/logo.png" align="left">
+			<img src="img/common/telephone_number.jpg" align="right">
+			<div class="search-body">
+
+				<div class="input-group">
+			      <input type="text" class="form-control" placeholder="输入你想要的商品">
+			      <span class="input-group-btn">
+			        <a href="search.html"><button  class="btn  btn-search" type="button"><i class="fa fa-search"></i></button></a>
+			      </span>
+			    </div>
+			    <div class="search-keyword">
+			    	<p>热搜：闸机泵</p>
+			    </div>
+			</div>
+
+		</div>
+		<!-- 横向导航 -->
+		<div class="nav-item">
+			<ul>
+				<li><a href="#">配件商城</a></li>
+				<li><a href="#">金融服务</a></li>
+				<li><a href="#">销售/服务网络</a></li>
+				<li><a href="#">积分商城</a></li>
+			</ul>
+		</div>
+		<div class="nav-body">
+			<!-- 侧边导航 -->
+			<div class="nav-side">
+				<ul>
+				    <li><span class="nav-side-item">混凝土机械</span></li>
+					<li><span class="nav-side-item">建筑起重机械</span></li>
+					<li><span class="nav-side-item">工程起重机械</span></li>
+					<li><span class="nav-side-item">路面机械</span></li>
+					<li><span class="nav-side-item">土方机械</span></li>
+					<li><span class="nav-side-item">环卫机械</span></li>
+					<li><span class="nav-side-item">工业车辆</span></li>
+					<li><span class="nav-side-item">模型专区</span></li>
+					<li><span class="nav-side-item">特惠专区</span></li>
+					<li><span class="nav-side-item">运费</span></li>
+				</ul>
+			</div>
+			<div class="nav-content">
+				<!-- 幻灯片 -->
+				<div class="slide">
+					<img class="carousel_img" src="img/products/banner.png" name="1" width="800" height="400">
+					<img class="carousel_img" src="img/products/banner02.jpg" name="2" width="800" height="400">
+					<div class="icon" align="bottom">
+						<i name="1" class="fa fa-circle"></i>
+						<i name="2" class="fa fa-circle"></i>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- 商品显示区域 -->
+		<div class="content">
+			<!-- 秒杀 -->
+			<div class="seckill">
+				<!-- 头部 -->
+				<div class="seckill-head">
+					<div class="seckill-text">
+						<span class="seckill-title">所有产品</span>
+					</div>
+					<div class="seckill-icon">
+						<img src="img/common/hot_icon.png">
+					</div>
+
+				</div>
+				<!-- 内容 -->
+				<div id="seckill-content" class="seckill-content">
+<!--					<div class="seckill-item">-->
+<!--						<div class="seckill-item-img">-->
+<!--							<img src="img/products/yyy_01.png">-->
+<!--						</div>-->
+<!--						<div class="seckill-item-info">-->
+<!--							<p>中联液压油</p>-->
+<!--							<p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">2828.00</span></p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="seckill-item">-->
+<!--						<div class="seckill-item-img">-->
+<!--							<img src="img/products/bzj_e2.png">-->
+<!--						</div>-->
+<!--						<div class="seckill-item-info">-->
+<!--							<p>标准节E2</p>-->
+<!--							<p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">7525.00</span></p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="seckill-item">-->
+<!--						<div class="seckill-item-img">-->
+<!--							<img src="img/products/ljz_01.png">-->
+<!--						</div>-->
+<!--						<div class="seckill-item-info">-->
+<!--							<p>锂基脂00#</p>-->
+<!--							<p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">215.00</span></p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="seckill-item">-->
+<!--						<div class="seckill-item-img">-->
+<!--							<img src="img/products/bzj_eq7.png">-->
+<!--						</div>-->
+<!--						<div class="seckill-item-info">-->
+<!--							<p>标准节EQ7</p>-->
+<!--							<p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">8700.00</span></p>-->
+<!--						</div>-->
+<!--					</div>-->
+
+				</div>
+			</div>
+			<!-- 混凝土机械 -->
+			<div class="item-class">
+				<div class="item-class-head">
+					<span class="item-class-title">混凝土机械</span>
+					<ul>
+						<li><a href="#">查看更多</a></li>
+					</ul>
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+						<div class="item-big-img">
+							<img src="img/products/f1_left_big.jpg" alt="">
+						</div>
+						<div class="item-two-img">
+							<div class="item-two-detail">
+								<div class="item-two-detail-text2">
+									<p class="pt_bi_tit2">通达尔液压油200L</p>
+									<p class="pt_bi_promo2">￥2780.00</p>
+								</div>
+								<div class="item-two-detail-img">
+									<img src="img/products/f1_m_top.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-two-detail">
+								<div class="item-two-detail-text2">
+									<p class="pt_bi_tit2">中联-美孚液压油208L</p>
+									<p class="pt_bi_promo2">￥3230.00</p>
+								</div>
+								<div class="item-two-detail-img">
+									<img src="img/products/f1_m_bottom.png" alt="">
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+
+						<div class="item-four-img">
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">活塞+导向环套装φ200</p>
+									<p class="pt_bi_promo">￥289.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_1_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">SPC全合成齿轮油</p>
+									<p class="pt_bi_promo">￥2168.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_2_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">发动机专用机油</p>
+									<p class="pt_bi_promo">￥328.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_1_m.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">尿素</p>
+									<p class="pt_bi_promo">￥42.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_2_m.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">锂基脂ZL-1</p>
+									<p class="pt_bi_promo">￥271.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_1_b.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">膜填板</p>
+									<p class="pt_bi_promo">￥2305.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f1_r_2_b.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 建筑起重机械 -->
+			<div class="item-class">
+				<div class="item-class-head">
+					<span class="item-class-title">建筑起重机械</span>
+					<ul>
+						<li><a href="#">查看更多</a></li>
+					</ul>
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+						<div class="item-big-img">
+							<img src="img/products/f2_left_big.jpg" alt="">
+						</div>
+						<div class="item-two-img">
+							<div class="item-two-detail">
+							<div class="item-two-detail-text2">
+								<p class="pt_bi_tit2">标准节EQ7</p>
+								<p class="pt_bi_promo2">￥8700.00</p>
+							</div>
+							<div class="item-two-detail-img">
+								<img src="img/products/f2_m_t.png" alt="">
+							</div>
+						</div>
+							<div class="item-two-detail">
+								<div class="item-two-detail1">
+									<div class="item-two-detail-text2">
+										<p class="pt_bi_tit">标准节A1</p>
+										<p class="pt_bi_promo2">￥10330.00</p>
+									</div>
+									<div class="item-two-detail1-img">
+										<img src="img/products/f2_m_b_01.png" alt="">
+									</div>
+								</div>
+								<div class="item-two-detail1">
+									<div class="item-two-detail-text2">
+										<p class="pt_bi_tit">标准节E2</p>
+										<p class="pt_bi_promo2">￥7525.00</p>
+									</div>
+									<div class="item-two-detail1-img">
+										<img src="img/products/f2_m_b_02.PNG" alt="">
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+
+						<div class="item-four-img">
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">支腿TC6517</p>
+									<p class="pt_bi_promo">￥8280.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_1_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">支腿TC5610</p>
+									<p class="pt_bi_promo">￥4960.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_2_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">地脚螺栓总成（M39*1050）</p>
+									<p class="pt_bi_promo">￥2160.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_1_m.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">支腿TC70306</p>
+									<p class="pt_bi_promo">￥24660.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_2_m.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">可编程控制器</p>
+									<p class="pt_bi_promo">￥3775.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_1_b.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">标准节MQ1</p>
+									<p class="pt_bi_promo">￥14400.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f2_r_2_b.png" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 工程起重机械 -->
+			<div class="item-class">
+				<div class="item-class-head">
+					<span class="item-class-title">工程起重机</span>
+					<ul>
+						<li><a href="#">查看更多</a></li>
+					</ul>
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+						<div class="item-big-img">
+							<img src="img/products/f3_left_big.jpg" alt="">
+						</div>
+						<div class="item-two-img">
+							<div class="item-two-detail">
+								<div class="item-two-detail-text2">
+									<p class="pt_bi_tit2">滑块1087-470040-1010</p>
+									<p class="pt_bi_promo2">￥14.00</p>
+								</div>
+								<div class="item-two-detail-img">
+									<img src="img/products/f3_m_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-two-detail">
+								<div class="item-two-detail-text2">
+									<p class="pt_bi_tit2">电子油门踏板</p>
+									<p class="pt_bi_promo2">￥460.00</p>
+								</div>
+								<div class="item-two-detail-img">
+									<img src="img/products/f3_m_b.png" alt="">
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+
+						<div class="item-four-img">
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">机油滤清器</p>
+									<p class="pt_bi_promo">￥61.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_1_t.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">空气滤清器</p>
+									<p class="pt_bi_promo">￥206.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_2_t.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">滑轮</p>
+									<p class="pt_bi_promo">￥215.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_1_m.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">滤油器</p>
+									<p class="pt_bi_promo">￥710.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_2_m.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">燃油咀滤芯</p>
+									<p class="pt_bi_promo">￥106.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_1_b.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">轴管</p>
+									<p class="pt_bi_promo">￥242.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f3_r_2_b.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 路面机械 -->
+			<div class="item-class">
+				<div class="item-class-head">
+					<span class="item-class-title">路面机械</span>
+					<ul>
+						<li><a href="#">查看更多</a></li>
+					</ul>
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+						<div class="item-big-img">
+							<img src="img/products/f4_left_big.jpg" alt="">
+						</div>
+						<div class="item-two-img">
+							<div class="item-two-detail">
+								<div class="item-two-detail-text2">
+									<p class="pt_bi_tit2">刀头 RT06</p>
+									<p class="pt_bi_promo2">￥32.00</p>
+								</div>
+								<div class="item-two-detail-img">
+									<img src="img/products/f4_m_t.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-two-detail">
+								<div class="item-two-detail1">
+									<div class="item-two-detail-text2">
+										<p class="pt_bi_tit">吸油过滤器</p>
+										<p class="pt_bi_promo2">￥48.00</p>
+									</div>
+									<div class="item-two-detail1-img">
+										<img src="img/products/f4_m_b_01.jpg" alt="">
+									</div>
+								</div>
+								<div class="item-two-detail1">
+									<div class="item-two-detail-text2">
+										<p class="pt_bi_tit">柴油咀滤器</p>
+										<p class="pt_bi_promo2">￥219.00</p>
+									</div>
+									<div class="item-two-detail1-img">
+										<img src="img/products/f4_m_b_02.jpg" alt="">
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="item-class-content">
+					<div class="item-content-top">
+
+						<div class="item-four-img">
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">履带板橡胶</p>
+									<p class="pt_bi_promo">￥154.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_1_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">圆形减振器</p>
+									<p class="pt_bi_promo">￥302.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_2_t.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">搅拌叶片（A）</p>
+									<p class="pt_bi_promo">￥352.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_m_1.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">180°右螺旋叶片</p>
+									<p class="pt_bi_promo">￥218.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_m_2.png" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">压力管路过滤器0060D005BN4HC</p>
+									<p class="pt_bi_promo">￥276.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_b_1.jpg" alt="">
+								</div>
+							</div>
+							<div class="item-four-detail">
+								<div class="item-four-detail-text">
+									<p class="pt_bi_tit">压油过滤器LH0160D108N3HC</p>
+									<p class="pt_bi_promo">￥247.00</p>
+								</div>
+								<div class="item-four-detail-img">
+									<img src="img/products/f4_r_b-2.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 清除浮动 -->
+	<div class="clearfix"></div>
+	<!-- 底部 -->
+	<footer class="footer">
+		<div class="clearfix"></div>
+		<div class="icon-row">
+			<div class="footer-icon">
+				<h5 class="footer-icon-child"></h5>
+				<span class="footer-icon-text">真实货源</span>
+				<p align="right">一手货源 真实存在</p>
+			</div>
+			<div class="footer-icon">
+				<h5 class="footer-icon-child footer-icon-child-2"></h5>
+				<span class="footer-icon-text">品质保障</span>
+				<p align="right">垂直专业 优选厂商</p>
+			</div>
+			<div class="footer-icon">
+				<h5 class="footer-icon-child footer-icon-child-3"></h5>
+				<span class="footer-icon-text">服务保障</span>
+				<p align="right">专业服务团队</p>
+			</div>
+			<div class="footer-icon">
+				<h5 class="footer-icon-child footer-icon-child-4"></h5>
+				<span class="footer-icon-text">交易透明</span>
+				<p align="right">买卖双方面谈价格</p>
+			</div>
+		</div>
+		<div class="service-intro">
+			<div class="servece-type">
+				<div class="servece-type-info">
+					<ul>
+						<li>新手指南</li>
+						<li>免费注册</li>
+						<li>个人资料及密码</li>
+						<li>商品关注</li>
+						<li>查询订单</li>
+						<li>购物流程</li>
+					</ul>
+				</div>
+				<div class="servece-type-info">
+					<ul>
+						<li>付款/退款</li>
+						<li>在线支付</li>
+						<li>银行转账</li>
+						<li>发票办理</li>
+					</ul>
+				</div>
+				<div class="servece-type-info">
+					<ul>
+						<li>配送方式</li>
+						<li>快递配送</li>
+						<li>零担物流</li>
+					</ul>
+				</div>
+				<div class="servece-type-info">
+					<ul>
+						<li>售后服务</li>
+						<li>退货流程</li>
+						<li>退货政策</li>
+					</ul>
+				</div>
+				<div class="servece-type-info">
+					<ul>
+						<li>帮助中心</li>
+						<li>常见热点问题</li>
+						<li>联系我们</li>
+						<li>投诉与建议</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="friend-link">
+				<div class="friend-link-item">
+					<ul>
+						<li><span class="link-item">关于我们</span></li>
+						<li><span class="link-item">联系我们</span></li>
+						<li><span class="link-item">联系客服</span></li>
+						<li><span class="link-item">合作招商</span></li>
+						<li><span class="link-item">商家帮助</span></li>
+						<li><span class="link-item">营销中心</span></li>
+						<li><span class="link-item">销售联盟</span></li>
+						<li><span class="link-item">校园社区</span></li>
+						<li><span class="link-item">风险监测</span></li>
+						<li><span class="link-item link-last-item">隐私政策</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="copyright">
+				<p>Copyright © 2021 BY BJFU_Confidence</p>
+			</div>
+		</div>
+	</footer>
+	<!-- 页面上的各种浮窗 -->
+	<!-- 地理位置 -->
+	<div class="city">
+		<p>
+			<span class="city-item">北京 </span>
+			<span class="city-item">上海 </span>
+			<span class="city-item">天津 </span>
+			<span class="city-item">重庆 </span>
+			<span class="city-item">河北 </span>
+		</p>	
+		<p>
+			<span class="city-item">山西 </span>
+			<span class="city-item">河南 </span>
+			<span class="city-item">辽宁 </span>
+			<span class="city-item">吉林 </span>
+			<span class="city-item">江苏 </span>
+		</p>
+		<p>
+			<span class="city-item">福建 </span>
+			<span class="city-item">湖北 </span>
+			<span class="city-item">湖南 </span>
+			<span class="city-item">广东 </span>
+			<span class="city-item">广西 </span>
+		</p>
+		<p>
+			<span class="city-item">江西 </span>
+			<span class="city-item">四川 </span>
+			<span class="city-item">海南 </span>
+			<span class="city-item">贵州</span>
+			<span class="city-item">云南</span>
+		</p>
+		<p>
+			<span class="city-item">西藏</span>
+			<span class="city-item">陕西</span>
+			<span class="city-item">甘肃</span>
+			<span class="city-item">青海</span>
+			<span class="city-item">宁夏</span>
+		</p>
+	</div>
+	<!-- 我的商城 -->
+	<div class="my-shop-panel">
+		<p>
+			<span class="my-item">待处理订单</span>
+			<span class="my-item">返修退换货</span>
+		</p>
+		<p>
+			<span class="my-item">返修退换货</span>	
+			<span class="my-item">降价商品</span>
+		</p>	
+		<p>
+			<span class="my-item">我的新消息</span>
+			<span class="my-item">我的问答</span>
+		</p>
+	</div>
+	<!-- 显示详细商品分类菜单 -->
+	<!-- 暂时先用两个面板显示商品分类详情 -->
+	<div class="detail-item-panel panel-1">
+		<div class="nav-detail-item">
+			<span>清洁用品 > </span>
+			<span>美妆商城 > </span>
+			<span>美妆馆 > </span>
+			<span>妆比社 > </span>
+			<span>全球购美妆 > </span>
+			<span>宠物馆 > </span>
+		</div>
+		<ul>
+			<li>
+				<span class="detail-item-title">面部护肤 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">补水保湿</span>
+			    <span class="detail-item">卸妆</span>
+			    <span class="detail-item">洁面</span>
+			    <span class="detail-item">爽肤水</span>
+			    <span class="detail-item">乳液面霜</span>
+			    <span class="detail-item">精华</span>
+			    <span class="detail-item">眼霜</span>
+			    <span class="detail-item">防晒</span>
+			    <span class="detail-item">面膜</span>
+			    <span class="detail-item">剃须</span>
+			    <span class="detail-item">套装</span>
+	    	</li>
+    	</ul>	
+	</div>
+	<div class="detail-item-panel panel-2">
+		<div class="nav-detail-item">
+			<span>赛事 > </span>
+		</div>
+		<ul>
+			<li>
+				<span class="detail-item-title">2017新品 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">休闲鞋</span>
+
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">运动鞋包 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">跑步鞋</span>
+
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">健身训练 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">跑步机</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">骑行运动 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">山地车</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">体育用品 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">乒乓球</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">户外鞋服 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">户外风衣</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">户外装备 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">背包</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">垂钓用品 <span class="glyphicon glyphicon-menu-right"> </span></span>
+			    <span class="detail-item">钓竿</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">游泳用品 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">女士泳衣</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">垂钓用品 <span class="glyphicon glyphicon-menu-right"> </span></span>
+			    <span class="detail-item">钓竿</span>
+	    	</li>
+	    	<li>
+	    		<span class="detail-item-title">游泳用品 <span class="glyphicon glyphicon-menu-right"></span></span>
+			    <span class="detail-item">女士泳衣</span>
+	    	</li>
+    	</ul>	
+	</div>
+</body>
+<script src="js/mall.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var baseUrl="http://localhost:8080/mall/"
+		//获取热销商品
+		$.ajax({
+			url: baseUrl + "product/findhotproducts.do",
+			// url: baseUrl + "product/findproducts.do",
+			type: "post",
+			data: {num: 5},
+			// data: {productTypeId:1,partsId:1,pageNum: 1,pageSize:10000,name:""},
+			xhrFields: {withCredentials: true},
+			crossDomain: true,
+			success: function (data) {
+				//判断
+				if (data.status == 0) {
+					for (var i = 0;i < data.data.length;i++){
+						$("#seckill-content").prepend('<a href="product_detail.html?productId='+data.data[i].id+'"><div class="seckill-item"><div class="seckill-item-img"><img src="'+data.data[i].sub_images+'"></div><div class="seckill-item-info"><p>'+data.data[i].name+'</p><p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">'+data.data[i].price+'</span></p></div></div></a>')
+					}
+					// console.log(data.data)
+					// for (var i = 0;i < data.data.data.length;i++){
+					// 	$("#seckill-content").prepend('<div class="seckill-item"><div class="seckill-item-img"><img src="'+data.data.data[i].subImages+'"></div><div class="seckill-item-info"><p>'+data.data.data[i].name+'</p><p><i class="fa fa-rmb text-danger"></i><span class="seckill-price text-danger">'+data.data.data[i].price+'</span></p></div></div>')
+					// }
+				} else {
+					alert(data.msg)
+				}
+			}
+		});
+		$.ajax({
+			url: baseUrl + "user/get_user.do",
+			type: "post",
+			xhrFields: {withCredentials: true},
+			crossDomain: true,
+			success: function (data) {
+				console.log(data)
+				//判断
+				if (data.password != "-1"){
+					$("#register_info").hide();
+					$("#headerUsername").text(data.account);
+					$("#login_info").show();
+				}else {
+					$("#register_info").show();
+					$("#login_info").hide();
+				}
+			}
+		});
+		var question = $("#userName").val()
+		var account = $("#userName").val()
+		var answer = $("#answer").val()
+		$("#headerLogout").click(function(){
+			$.ajax({
+				url:baseUrl+"user/do_logout.do",
+				type:"post",
+				// data:{account:account,question:question,asw:answer},
+				xhrFields:{withCredentials:true},
+				crossDomain:true,
+				success:function(data){
+					//判断
+					if(data.status==0){
+						alert("退出成功")
+						location.reload();
+					}else{
+						alert(data.msg)
+					}
+				}
+			});
+		})
+		$("#nextOpt").click(function(){
+			account = $("#userName").val()
+			answer = $("#answer").val()
+			$.ajax({
+				url:baseUrl+"user/checkuserasw.do",
+				type:"post",
+				data:{account:account,question:question,asw:answer},
+				xhrFields:{withCredentials:true},
+				crossDomain:true,
+				success:function(data){
+					//判断
+					if(data.status==0){
+						$(window).attr("location","./password_reset.html")
+						// alert(data.msg)
+					}else{
+						alert(data.msg)
+					}
+				}
+			});
+		});
+		$("#userName").blur(function(){
+			account = $("#userName").val()
+			$.ajax({
+				url:baseUrl+"user/getuserquestion.do",
+				type:"post",
+				data:{account:account},
+				xhrFields:{withCredentials:true},
+				crossDomain:true,
+				success:function(data){
+					//判断
+					if(data.status==0){
+						question = data.data.question
+						$("#question").text(question)
+					}else{
+						$("#passwordError").css({display:"block"});
+						$("#question").text("")
+						alert("该用户不存在")
+					}
+				}
+			});
+		});
+
+	});
+</script>
+</html>

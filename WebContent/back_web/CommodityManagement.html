@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>网上购物平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">网上购物平台</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    ${loginUser.user_name}
+                </a>
+
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+
+                <c:if test="${loginUser.user_identity==1}">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+<!--                            <dd  onclick="setIframeSrc('/UserManagement')"><a href="javascript:;">用户列表</a></dd>-->
+                            <dd><a href="UserManagement.html">用户列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">商品管理</a>
+                        <dl class="layui-nav-child">
+<!--                            <dd onclick="setIframeSrc('/CommodityManagement')"><a href="javascript:;">商品列表</a></dd>-->
+<!--                            <dd  onclick="setIframeSrc('/TypeManagement}')"><a href="javascript:;">商品类型列表</a></dd>-->
+                            <dd><a href="CommodityManagement.html">商品列表</a></dd>
+                            <dd><a href="TypeManagement.html">商品类型列表</a></dd>
+                        </dl>
+                    </li>
+                </c:if>
+                <c:if test="${loginUser.user_identity==0}">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">订单管理</a>
+                        <dl class="layui-nav-child">
+<!--                            <dd  onclick="setIframeSrc('/OrderManagement')"><a href="javascript:;">订单列表</a></dd>-->
+                            <dd><a href="OrderManagement.html">订单管理</a></dd>
+                        </dl>
+                    </li>
+
+                </c:if>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="layui-body" >
+        <!-- 内容主体区域 -->
+        <div class="layui-row">
+
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                <legend>商品记录</legend>
+            </fieldset>
+
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>商品编号</th>
+                    <th>商品名称</th>
+                    <th>状态</th>
+                    <th>热销</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${actionmall}" var="r">
+                    <tr>
+                        <td>${r.id}</td>
+                        <td>${r.name}</td>
+                        <td>
+                            <c:if test="${r.status==1}">待售</c:if>
+                            <c:if test="${r.status==2}">上架在售</c:if>
+                            <c:if test="${r.status==3}">下架停售</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${r.is_hot==1}">是</c:if>
+                            <c:if test="${r.is_hot==2}">否</c:if>
+                        </td>
+                        <td>
+                            <a class="layui-btn layui-btn-xs add" href="commodityAlter.html">新增</a>
+                            <a class="layui-btn layui-btn-xs add" href="commodityAlter.html">修改</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-xs" >新增</a>
+                <a class="layui-btn layui-btn-xs" >修改</a>
+            </script>
+        </div>
+        <script src="../layui.js"></script>
+        <script>
+            //JavaScript代码区域
+            layui.use('element', function(){
+                var element = layui.element;
+
+            });
+            function setIframeSrc(src){
+                document.getElementById("myframe").src=src;
+            }
+
+        </script>
+        <script language="javascript">
+            var timeIframe;
+            window.onload=function(){
+                timeIframe=setTimeout(GetIframeStatus,10);
+            }
+            function GetIframeStatus()
+            {
+                var iframe = document.getElementById("myframe");
+                var iframeWindow=iframe.contentWindow;
+//内容是否加载完
+                if(iframeWindow.document.readyState=="complete")
+                {
+                    var iframeWidth,iframeHeight;
+//获取Iframe的内容实际宽度
+                    iframeWidth=iframeWindow.document.documentElement.scrollWidth;
+//获取Iframe的内容实际高度
+                    iframeHeight=iframeWindow.document.documentElement.scrollHeight;
+//设置Iframe的宽度
+                    iframe.width=iframeWidth;
+//设置Iframe的高度
+                    iframe.height=iframeHeight;
+                }
+                else
+                {
+                    timeIframe=setTimeout(GetIframeStatus,10);
+                }
+            }
+        </script>
+</body>
+</html>

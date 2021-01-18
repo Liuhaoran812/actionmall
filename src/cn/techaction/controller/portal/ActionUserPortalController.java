@@ -144,4 +144,32 @@ public class ActionUserPortalController {
 		}
 		return result;
 	}
+	/**
+	 * 用户注销登出
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/do_logout.do",method=RequestMethod.POST)
+	@ResponseBody
+	public SverResponse<String> doLogout(HttpSession session){
+		//1.将session清空,退出登录
+		session.removeAttribute(ConstUtil.CUR_USER);
+		return SverResponse.createRespBySuccess();
+	}
+	/**
+	 * 用户登录
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/get_user.do",method=RequestMethod.POST)
+	@ResponseBody
+	public User getUser(HttpSession session){
+		Object user = session.getAttribute(ConstUtil.CUR_USER);
+		if (user != null){
+			return (User) user;
+		}
+		User user1 = new User();
+		user1.setPassword("-1");
+		return user1;
+	}
 }

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/car.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/mall.css?15613145">
+</head>
+<body>
+<!-- 顶部导航条 -->
+<header class="header_outbox">
+    <div class="header_inbox">
+        <div class="loginbox">
+            <p>欢迎访问机械配件商城</p>
+            <a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ 访问官网 ]</a>
+            <span>
+                    <a href="#" class="login">&nbsp;&nbsp;&nbsp;&nbsp;登录&nbsp;&nbsp;</a>
+                    <img src="img/common/header_line.jpg">
+                    <a href="#" target="_blank">&nbsp;&nbsp;免费注册&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </span>
+            <span style="display: none">
+                    <a href="#" id="headerUsername" class="login"></a>
+                    <img src="img/common/header_line.jpg">
+                    <a href="#" id="headerLogout" class="login">&nbsp;&nbsp;退出</a>
+                </span>
+        </div>
+        <ul class="my_action">
+            <li style="list-style-type:none;">
+                <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的关注</a>
+            </li>
+            <li style="list-style-type:none;">
+                <a href="car.html">
+                    <img src="img/common/mix_car.png" width="20" height="20">
+                    <span id="cartQuantity">[0]</span>购物车
+                </a>
+            </li>
+            <li class="nav-pull-down my-shop"  style="list-style-type:none;">
+                <a href="#">我的商城</a>
+            </li>
+        </ul>
+    </div>
+</header>
+<!-- 内容主题 -->
+<div class="container">
+    <!-- 搜索框 -->
+    <div class="search">
+        <img src="img/common/logo.png" align="left">
+        <img src="img/common/telephone_number.jpg" align="right">
+        <div class="search-body">
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="输入你想要的商品">
+                <span class="input-group-btn">
+			        <a href="search.html"><button  class="btn  btn-search" type="button"><i class="fa fa-search"></i></button></a>
+			      </span>
+            </div>
+            <div class="search-keyword">
+                <p>热搜：闸机泵</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-body_order">
+        <!-- 侧边导航 -->
+        <div class="left_nav">
+            <!--    个人信息-->
+            <div class="person_info">
+                <div class="head_img">
+                    <img src="img/common/level.png" alt="">
+                </div>
+                <div class="welcome_info">
+                    hi,亲爱的，欢迎回来
+                </div>
+                <div class="level_score">
+                    <div class="clearfix">
+                        <div class="l">会员等级：</div>
+                        <div class="level_value ">菜鸟</div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="l">会员积分：</div>
+                        <div class="score_value ">0</div>
+                    </div>
+                </div>
+            </div>
+            <!--    我的交易-->
+            <div id="my-deal">
+                <div class="title">
+                    <div class="dashed">我的交易</div>
+                </div>
+                <div class="item"><a hred="#">
+                    我的订单
+                </a></div>
+                <div class="item active"><a hred="#">
+                    我的购物车
+                </a></div>
+                <div class="item"><a href="#">我的积分购物车</a></div>
+                <div class="item"><a href="#">我的积分消费</a></div>
+                <div class="item"><a href="#">我的关注</a></div>
+                <div class="item"><a href="#">我的购买咨询</a></div>
+                <div class="item"><a href="#">我的优惠券</a></div>
+                <div class="item"><a href="#">我的地址管理</a></div>
+                <div class="item"><a href="#">我的推荐</a></div>
+            </div>
+            <!--    我的账户-->
+            <div id="my-account">
+                <div class="title">
+                    <div class="dashed">我的账户</div>
+                </div>
+                <div class="item"><a href="#">个人资料</a></div>
+                <div class="item"><a href="#">修改密码</a></div>
+            </div>
+        </div>
+    </div>
+    <!--   右侧个人资料页-->
+    <div class="nav_right">
+        <div class="right_title2">个人资料</div>
+        <hr style="width: 770px;float: right;border: none;border-top: 1px solid #DDD;margin: 5px 0px 0px 0px;">
+<!--    <div>-->
+<!--        <div>个人资料</div>-->
+<!--        <hr>-->
+        <form action="#" method="post" novalidate="novalidate">
+            <div class="information_box">
+                <div>
+                    <div>用户名：</div>
+                    <input type="text" id="" name="" maxlength="20" autocomplete="off" value="阿三">
+                </div>
+                <div>
+                    <div>姓名：</div>
+                    <input type="text" id="name" name="name" maxlength="20" autocomplete="off" placeholder="请填写真实姓名">
+                </div>
+                <div>
+                    <div>性别：</div>
+                    <div style="padding-top: 5px">
+                        <input type="radio" checked name="sex" style="margin-right: 5px">男</input>
+                        <input type="radio" name="sex" style="margin-right: 5px;margin-left: 10px" >女</input>
+                    </div>
+                </div>
+                <div>
+                    <div>年龄：</div>
+                    <input type="text" id="age" name="age" maxlength="20" autocomplete="off" placeholder="例：18">
+                </div>
+                <div>
+                    <div class="information_label">手机号：</div>
+                    <input type="text" id="phone" name="phone" maxlength="20" autocomplete="off" placeholder="xxx-xxxxxxxx">
+                </div>
+                <div>
+                    <div class="information_label">邮箱：</div>
+                    <input type="text" id="email" name="email" maxlength="20" autocomplete="off" placeholder="例：xxx@xx.com">
+                </div>
+                <input type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- 清除浮动 -->
+<div class="clearfix"></div>
+<!-- 底部 -->
+<footer class="footer2">
+    <div class="clearfix"></div>
+    <div class="icon-row">
+        <div class="footer-icon">
+            <h5 class="footer-icon-child"></h5>
+            <span class="footer-icon-text">真实货源</span>
+            <p align="right">一手货源 真实存在</p>
+        </div>
+        <div class="footer-icon">
+            <h5 class="footer-icon-child footer-icon-child-2"></h5>
+            <span class="footer-icon-text">品质保障</span>
+            <p align="right">垂直专业 优选厂商</p>
+        </div>
+        <div class="footer-icon">
+            <h5 class="footer-icon-child footer-icon-child-3"></h5>
+            <span class="footer-icon-text">服务保障</span>
+            <p align="right">专业服务团队</p>
+        </div>
+        <div class="footer-icon">
+            <h5 class="footer-icon-child footer-icon-child-4"></h5>
+            <span class="footer-icon-text">交易透明</span>
+            <p align="right">买卖双方面谈价格</p>
+        </div>
+    </div>
+    <div class="service-intro">
+        <div class="servece-type">
+            <div class="servece-type-info">
+                <ul>
+                    <li>新手指南</li>
+                    <li>免费注册</li>
+                    <li>个人资料及密码</li>
+                    <li>商品关注</li>
+                    <li>查询订单</li>
+                    <li>购物流程</li>
+                </ul>
+            </div>
+            <div class="servece-type-info">
+                <ul>
+                    <li>付款/退款</li>
+                    <li>在线支付</li>
+                    <li>银行转账</li>
+                    <li>发票办理</li>
+                </ul>
+            </div>
+            <div class="servece-type-info">
+                <ul>
+                    <li>配送方式</li>
+                    <li>快递配送</li>
+                    <li>零担物流</li>
+                </ul>
+            </div>
+            <div class="servece-type-info">
+                <ul>
+                    <li>售后服务</li>
+                    <li>退货流程</li>
+                    <li>退货政策</li>
+                </ul>
+            </div>
+            <div class="servece-type-info">
+                <ul>
+                    <li>帮助中心</li>
+                    <li>常见热点问题</li>
+                    <li>联系我们</li>
+                    <li>投诉与建议</li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="friend-link">
+            <div class="friend-link-item">
+                <ul>
+                    <li><span class="link-item">关于我们</span></li>
+                    <li><span class="link-item">联系我们</span></li>
+                    <li><span class="link-item">联系客服</span></li>
+                    <li><span class="link-item">合作招商</span></li>
+                    <li><span class="link-item">商家帮助</span></li>
+                    <li><span class="link-item">营销中心</span></li>
+                    <li><span class="link-item">销售联盟</span></li>
+                    <li><span class="link-item">校园社区</span></li>
+                    <li><span class="link-item">风险监测</span></li>
+                    <li><span class="link-item link-last-item">隐私政策</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="copyright">
+            <p>Copyright © 2021 BY BJFU_Confidence</p>
+        </div>
+    </div>
+</footer>
+<!-- 页面上的各种浮窗 -->
+<!-- 地理位置 -->
+
+<div class="city">
+    <p>
+        <span class="city-item">北京 </span>
+        <span class="city-item">上海 </span>
+        <span class="city-item">天津 </span>
+        <span class="city-item">重庆 </span>
+        <span class="city-item">河北 </span>
+    </p>
+    <p>
+        <span class="city-item">山西 </span>
+        <span class="city-item">河南 </span>
+        <span class="city-item">辽宁 </span>
+        <span class="city-item">吉林 </span>
+        <span class="city-item">江苏 </span>
+    </p>
+    <p>
+        <span class="city-item">福建 </span>
+        <span class="city-item">湖北 </span>
+        <span class="city-item">湖南 </span>
+        <span class="city-item">广东 </span>
+        <span class="city-item">广西 </span>
+    </p>
+    <p>
+        <span class="city-item">江西 </span>
+        <span class="city-item">四川 </span>
+        <span class="city-item">海南 </span>
+        <span class="city-item">贵州</span>
+        <span class="city-item">云南</span>
+    </p>
+    <p>
+        <span class="city-item">西藏</span>
+        <span class="city-item">陕西</span>
+        <span class="city-item">甘肃</span>
+        <span class="city-item">青海</span>
+        <span class="city-item">宁夏</span>
+    </p>
+</div>
+<!-- 我的商城 -->
+<div class="my-shop-panel">
+    <p>
+        <span class="my-item">待处理订单</span>
+        <span class="my-item">返修退换货</span>
+    </p>
+    <p>
+        <span class="my-item">返修退换货</span>
+        <span class="my-item">降价商品</span>
+    </p>
+    <p>
+        <span class="my-item">我的新消息</span>
+        <span class="my-item">我的问答</span>
+    </p>
+</div>
+
+</body>
+<script src="js/mall.js"></script>
+</html>

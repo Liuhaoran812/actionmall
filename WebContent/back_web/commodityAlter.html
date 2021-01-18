@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>资源共享平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+</head>
+<body class="layui-layout-body">
+<!--<c:if test="${fileState eq '0'}">-->
+<!--    <script>-->
+<!--        alert("上传失败。");-->
+<!--    </script>-->
+<!--</c:if>-->
+<!--<c:if test="${fileState eq '1'}">-->
+<!--    <script>-->
+<!--        alert("上传成功。");-->
+<!--    </script>-->
+<!--</c:if>-->
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend>商品修改/添加</legend>
+</fieldset>
+<form class="layui-form layui-form-pane" action="/fileUpload" method="post" enctype="multipart/form-data">
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="resource_name" autocomplete="off" placeholder="请输入资源名称" class="layui-input">
+        </div>
+    </div>
+
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属产品类型</label>
+        <div class="layui-input-block">
+            <select name="resource_field" lay-filter="aihao">
+                <option value=""></option>
+                <option value="混凝土机械">混凝土机械</option>
+                <option value="建筑起重机械" >建筑起重机械</option>
+                <option value="路面机械">路面机械</option>
+                <option value="土方机械">土方机械</option>
+                <option value="环卫机械">环卫机械</option>
+                <option value="工业车辆">工业车辆</option>
+                <option value="模型专区">模型专区</option>
+                <option value="特辑专区">特辑专区</option>
+                <option value="运费-01">运费-01</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属配件类别</label>
+        <div class="layui-input-block">
+            <select name="resource_type" lay-filter="aihao">
+                <option value=""></option>
+                <option value="泵送搅拌系统">泵送搅拌系统</option>
+                <option value="油品" >油品</option>
+                <option value="电器元件">电器元件</option>
+                <option value="地盘配件">地盘配件</option>
+                <option value="发动机件">发动机件</option>
+                <option value="轮胎">轮胎</option>
+                <option value="管阀类">管阀类</option>
+                <option value="易损类">易损类</option>
+                <option value="防冻液">防冻液</option>
+                <option value="齿轮油">齿轮油</option>
+                <option value="润滑油">润滑油</option>
+                <option value="液压油">液压油</option>
+                <option value="锂基油">锂基油</option>
+                <option value="接触器">接触器</option>
+                <option value="开关">开关</option>
+                <option value="继电器">继电器</option>
+                <option value="遥控器">遥控器</option>
+                <option value="断路器">断路器</option>
+                <option value="控制器">控制器</option>
+                <option value="轮胎起重机">轮胎起重机</option>
+                <option value="内燃平衡重叉车">内燃平衡重叉车</option>
+                <option value="Z系列">Z系列</option>
+                <option value="E系列">E系列</option>
+                <option value="免运费">免运费</option>
+                <option value="pvc管阀">pvc管阀</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" width="700px">商品价格(元)</label>
+        <div class="layui-input-block">
+            <input type="text" name="resource_name" autocomplete="off" placeholder="请输入资源名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品库存(件)</label>
+        <div class="layui-input-block">
+            <input type="text" name="resource_name" autocomplete="off" placeholder="请输入资源名称" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择图片</label>
+        <div class="layui-input-block">
+            <input type="file" name="resoucresFile" autocomplete="off"  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">商品详情</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item" align="center">
+        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">保存</button>
+    </div>
+</form>
+<script src="../layui.js" charset="utf-8"></script>
+<script>
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单赋值
+        layui.$('#LAY-component-form-setval').on('click', function(){
+            form.val('example', {
+                "username": "贤心" // "name": "value"
+                ,"password": "123456"
+                ,"interest": 1
+                ,"like[write]": true //复选框选中状态
+                ,"close": true //开关状态
+                ,"sex": "女"
+                ,"desc": "我爱 layui"
+            });
+        });
+
+        //表单取值
+        layui.$('#LAY-component-form-getval').on('click', function(){
+            var data = form.val('example');
+            alert(JSON.stringify(data));
+        });
+
+    });
+</script>
+</body>
+</html>
